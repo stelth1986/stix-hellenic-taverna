@@ -40,13 +40,11 @@ export default function Home() {
             Greek food, cooked over charcoal
           </p>
           <h1 className="sr-only">Stix Hellenic Taverna</h1>
-          <div className="mx-auto mt-8 inline-block bg-cream px-10 py-6 shadow-[0_16px_50px_rgba(0,0,0,0.35)] md:px-14 md:py-8">
-            <img
-              src="./images/stix-logo.png"
-              alt="Stix Hellenic Taverna"
-              className="h-24 w-auto mix-blend-multiply md:h-32"
-            />
-          </div>
+          <img
+            src="./images/stix-logo.png"
+            alt="Stix Hellenic Taverna"
+            className="mx-auto mt-8 h-24 w-auto drop-shadow-[0_6px_28px_rgba(0,0,0,0.65)] md:h-36"
+          />
           <span className="key-divider mt-8 bg-gold-light" />
           <p className="mx-auto mt-8 max-w-2xl text-balance text-lg font-light leading-relaxed text-cream/90 md:text-xl">
             {SITE.tagline}
