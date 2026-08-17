@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 33% 96%;
+    --foreground: 225 30% 16%;
+    --card: 40 33% 98%;
+    --card-foreground: 225 30% 16%;
+    --popover: 40 33% 98%;
+    --popover-foreground: 225 30% 16%;
+    --primary: 226 64% 30%;
+    --primary-foreground: 40 33% 96%;
+    --secondary: 38 30% 90%;
+    --secondary-foreground: 225 30% 16%;
+    --muted: 38 24% 91%;
+    --muted-foreground: 225 12% 42%;
+    --accent: 39 46% 52%;
+    --accent-foreground: 225 30% 14%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 36 20% 84%;
+    --input: 36 20% 84%;
+    --ring: 226 64% 30%;
+    --radius: 0.25rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  ::selection {
+    background: hsl(226 64% 30% / 0.9);
+    color: hsl(40 33% 96%);
+  }
+}
+
+@layer components {
+  /* Thin Greek-key style divider: a gold rule with a centre diamond */
+  .key-divider {
+    @apply relative mx-auto block h-px w-24 bg-gold;
+  }
+  .key-divider::after {
+    content: "";
+    @apply absolute left-1/2 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rotate-45 border border-gold bg-background;
+  }
+  /* Menu item price leader row */
+  .menu-item {
+    @apply flex items-baseline gap-3;
+  }
+  .menu-item .leader {
+    @apply mx-1 flex-1 border-b border-dotted border-foreground/30;
+    transform: translateY(-4px);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: "Cormorant Garamond", Georgia, serif;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  /* Subtle meander (Greek key) strip built from borders */
+  .meander {
+    background-image: repeating-linear-gradient(
+      90deg,
+      hsl(39 46% 52%) 0 2px,
+      transparent 2px 14px
+    );
+    background-size: 100% 2px;
+    background-repeat: no-repeat;
+    background-position: bottom;
+  }
+}
