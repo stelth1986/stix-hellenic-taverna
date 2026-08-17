@@ -1,5 +1,7 @@
 import { MapPin, Phone, Mail, Clock, ExternalLink, TrainFront, Car } from "lucide-react";
+import { Link } from "react-router";
 import PageHero from "@/components/PageHero";
+import EnquiryForm from "@/components/EnquiryForm";
 import { BookButton } from "@/components/Layout";
 import { SITE, HOURS } from "@/data/site";
 
@@ -144,6 +146,28 @@ export default function LocationPage() {
                 referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact form */}
+      <section className="bg-secondary/60 py-20">
+        <div className="mx-auto max-w-3xl px-5">
+          <div className="text-center">
+            <h2 className="font-display text-4xl font-semibold text-aegean-ink md:text-5xl">
+              Send us a message.
+            </h2>
+            <p className="mx-auto mt-5 max-w-xl text-base font-light leading-relaxed text-foreground/70">
+              Questions, feedback or a big table you can't book online. For
+              functions, use the{" "}
+              <Link to="/functions" className="text-aegean underline underline-offset-4 hover:text-gold">
+                enquiry form
+              </Link>{" "}
+              instead.
+            </p>
+          </div>
+          <div className="mt-10 bg-card p-7 shadow-[0_1px_3px_rgba(16,31,69,0.08)] md:p-10">
+            <EnquiryForm type="contact" />
           </div>
         </div>
       </section>

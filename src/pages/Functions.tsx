@@ -1,5 +1,6 @@
-import { Mail, Phone, Cake, Briefcase, Heart, Users } from "lucide-react";
+import { Phone, Cake, Briefcase, Heart, Users } from "lucide-react";
 import PageHero from "@/components/PageHero";
+import EnquiryForm from "@/components/EnquiryForm";
 import { SITE } from "@/data/site";
 
 const OCCASIONS = [
@@ -54,10 +55,10 @@ export default function FunctionsPage() {
 
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
               <a
-                href={`mailto:${SITE.email}?subject=Function%20enquiry%20at%20Stix%20Hellenic%20Taverna`}
+                href="#enquiry"
                 className="inline-flex items-center justify-center gap-2 bg-aegean px-6 py-3 text-[12px] font-medium uppercase tracking-[0.25em] text-cream transition-colors hover:bg-aegean-deep"
               >
-                <Mail size={14} /> Make an Enquiry
+                Make an Enquiry
               </a>
               <a
                 href={SITE.phoneHref}
@@ -106,19 +107,22 @@ export default function FunctionsPage() {
         </div>
       </section>
 
-      {/* Enquiry band */}
-      <section className="bg-aegean-ink py-20 text-center text-cream">
+      {/* Enquiry form */}
+      <section id="enquiry" className="bg-aegean-ink py-20 text-cream">
         <div className="mx-auto max-w-3xl px-5">
-          <h2 className="font-display text-4xl font-semibold md:text-5xl">
-            Tell us the date and we will sort the rest.
-          </h2>
-          <p className="mx-auto mt-5 max-w-xl text-base font-light leading-relaxed text-cream/80">
-            Email{" "}
-            <a href={`mailto:${SITE.email}`} className="text-gold-light underline underline-offset-4">
-              {SITE.email}
-            </a>{" "}
-            or call {SITE.phoneDisplay} to start planning.
-          </p>
+          <div className="text-center">
+            <h2 className="font-display text-4xl font-semibold md:text-5xl">
+              Tell us the date and we will sort the rest.
+            </h2>
+            <p className="mx-auto mt-5 max-w-xl text-base font-light leading-relaxed text-cream/80">
+              Send through the details below and our events team will come back
+              to you with menus and pricing. Prefer to talk? Call{" "}
+              {SITE.phoneDisplay}.
+            </p>
+          </div>
+          <div className="mt-10 bg-cream p-7 text-foreground shadow-[0_20px_60px_rgba(0,0,0,0.35)] md:p-10">
+            <EnquiryForm type="function" />
+          </div>
         </div>
       </section>
     </>
