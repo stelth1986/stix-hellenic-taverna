@@ -39,12 +39,14 @@ export default function Home() {
           <p className="text-[11px] font-medium uppercase tracking-[0.4em] text-gold-light md:text-xs">
             Greek food, cooked over charcoal
           </p>
-          <h1 className="mt-6 font-display text-6xl font-semibold leading-[0.95] text-cream md:text-8xl">
-            Stix
-            <span className="mt-2 block text-2xl font-medium uppercase tracking-[0.5em] text-gold-light md:text-3xl">
-              Hellenic Taverna
-            </span>
-          </h1>
+          <h1 className="sr-only">Stix Hellenic Taverna</h1>
+          <div className="mx-auto mt-8 inline-block bg-cream px-10 py-6 shadow-[0_16px_50px_rgba(0,0,0,0.35)] md:px-14 md:py-8">
+            <img
+              src="./images/stix-logo.png"
+              alt="Stix Hellenic Taverna"
+              className="h-24 w-auto mix-blend-multiply md:h-32"
+            />
+          </div>
           <span className="key-divider mt-8 bg-gold-light" />
           <p className="mx-auto mt-8 max-w-2xl text-balance text-lg font-light leading-relaxed text-cream/90 md:text-xl">
             {SITE.tagline}
