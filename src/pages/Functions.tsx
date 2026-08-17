@@ -108,7 +108,7 @@ export default function FunctionsPage() {
       </section>
 
       {/* Enquiry form */}
-      <section id="enquiry" className="bg-aegean-ink py-20 text-cream">
+      <section id="enquiry" className="scroll-mt-32 bg-aegean-ink py-20 text-cream">
         <div className="mx-auto max-w-3xl px-5">
           <div className="text-center">
             <h2 className="font-display text-4xl font-semibold md:text-5xl">
