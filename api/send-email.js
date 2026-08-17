@@ -73,10 +73,10 @@ export default async function handler(req, res) {
         api_key: process.env.SMTP2GO_API_KEY,
         to: [RECIPIENT],
         sender: SENDER,
-        reply_to: [String(email)],
+        custom_headers: [{ header: "Reply-To", value: `${name} <${email}>` }],
         subject,
-        html,
-        text,
+        html_body: html,
+        text_body: text,
       }),
     });
     const data = await r.json().catch(() => ({}));
