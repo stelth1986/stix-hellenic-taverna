@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router";
-import { Menu, X, MapPin, Phone, Mail, Clock } from "lucide-react";
+import { Menu, X, MapPin, Phone, Mail, Clock, Instagram, Facebook } from "lucide-react";
 import { SITE, HOURS } from "@/data/site";
 
 const NAV_LEFT = [
@@ -12,6 +12,7 @@ const NAV_LEFT = [
 const NAV_RIGHT = [
   { to: "/functions", label: "Functions" },
   { to: "/gallery", label: "Gallery" },
+  { to: "/contact", label: "Contact" },
 ];
 
 const NAV_ALL = [...NAV_LEFT, ...NAV_RIGHT];
@@ -162,6 +163,28 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   className="transition-colors hover:text-gold-light"
                 >
                   {SITE.email}
+                </a>
+              </p>
+              <p className="flex items-center gap-3">
+                <Instagram size={16} className="shrink-0 text-gold" />
+                <a
+                  href={SITE.instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-gold-light"
+                >
+                  @stixhellenictaverna
+                </a>
+              </p>
+              <p className="flex items-center gap-3">
+                <Facebook size={16} className="shrink-0 text-gold" />
+                <a
+                  href={SITE.facebookUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-gold-light"
+                >
+                  Stix Hellenic Taverna
                 </a>
               </p>
             </div>

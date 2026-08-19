@@ -5,6 +5,7 @@ import LocationPage from "./pages/Location";
 import MenuPage from "./pages/Menu";
 import FunctionsPage from "./pages/Functions";
 import GalleryPage from "./pages/Gallery";
+import ContactPage from "./pages/Contact";
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
         <Route path="/menu" element={<MenuPage />} />
         <Route path="/functions" element={<FunctionsPage />} />
         <Route path="/gallery" element={<GalleryPage />} />
+        <Route path="/contact" element={<ContactPage />} />
         <Route path="*" element={<Home />} />
       </Routes>
     </Layout>

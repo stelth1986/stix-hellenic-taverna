@@ -11,6 +11,8 @@ export const SITE = {
     "https://www.opentable.com.au/r/riverview-hotel-reservations-tempe?restref=279953&lang=en-AU&ot_source=Restaurant%20website",
   hotelUrl: "https://riverviewhoteltempe.com.au/",
   hotelName: "Riverview Hotel Tempe",
+  facebookUrl: "https://www.facebook.com/stixhellenictaverna",
+  instagramUrl: "https://www.instagram.com/stixhellenictaverna/",
   mapEmbed:
     "https://www.google.com/maps?q=900+Princes+Hwy,+Tempe+NSW+2044&output=embed",
   mapLink:

@@ -8,7 +8,7 @@ const MENU_CARDS = [
     title: "Lunch Menu",
     when: `${HOURS.lunchMenu.days} · ${HOURS.lunchMenu.time}`,
     desc: "Souvla wraps, burgers, salads and pita with dips.",
-    image: "./images/haloumi-wrap.jpg",
+    image: "./images/souvla-wrap-fix.jpg",
   },
   {
     title: "Dinner Menu",
@@ -92,16 +92,11 @@ export default function Home() {
               See the menu <ArrowRight size={15} />
             </Link>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div>
             <img
-              src="./images/bbq-octopus.jpg"
-              alt="Chargrilled BBQ octopus with lemon"
-              className="aspect-[3/4] w-full object-cover"
-            />
-            <img
-              src="./images/lamb-shoulder.jpg"
-              alt="Slow roasted lamb shoulder with tzatziki"
-              className="mt-10 aspect-[3/4] w-full object-cover"
+              src="./images/jim-elvis.webp"
+              alt="Jim Kospetas and Elvis Korsovitis at the charcoal grill"
+              className="aspect-[4/3] w-full object-cover shadow-[0_12px_40px_rgba(16,31,69,0.12)]"
             />
           </div>
         </div>
@@ -157,9 +152,9 @@ export default function Home() {
           <div className="grid items-center gap-14 lg:grid-cols-2">
             <div className="order-2 lg:order-1">
               <img
-                src="./images/souvla-wrap-fix.jpg"
-                alt="Souvla wrap with chips and a cold Fix beer"
-                className="aspect-[4/5] w-full object-cover"
+                src="./images/greek-flag-wall.jpg"
+                alt="A packed dining room at Stix under the neon Greek flag"
+                className="aspect-[4/5] w-full object-cover object-[70%_50%]"
               />
             </div>
             <div className="order-1 lg:order-2">
