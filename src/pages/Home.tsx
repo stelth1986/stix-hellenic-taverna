@@ -14,7 +14,7 @@ const MENU_CARDS = [
     title: "Dinner Menu",
     when: `${HOURS.dinnerMenu.days} · ${HOURS.dinnerMenu.time}`,
     desc: "The full taverna menu. Dips, salads, skewers, slow roasts and the fish of the day.",
-    image: "./images/stix-plates.jpg",
+    image: "./images/dinner-menu.jpg",
   },
   {
     title: "Beverage Menu",
