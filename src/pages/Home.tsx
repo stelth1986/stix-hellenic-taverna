@@ -29,9 +29,15 @@ export default function Home() {
     <>
       {/* ------------------------------ HERO ------------------------------ */}
       <section className="relative flex min-h-[92vh] items-center justify-center overflow-hidden bg-aegean-ink">
-        <img
-          src="./images/hero-flatlay.jpg"
-          alt="A full table of Greek dishes at Stix Hellenic Taverna"
+        <video
+          src="./videos/hero.mp4"
+          poster="./images/hero-flatlay.jpg"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          aria-label="A full table of Greek dishes at Stix Hellenic Taverna"
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-aegean-ink/55" />
