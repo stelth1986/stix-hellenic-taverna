@@ -84,7 +84,7 @@ export default function MenuPage() {
       <PageHero
         title="Our menu."
         intro="Dips, salads, charcoal souvla and slow roasts, with Greek wine, ouzo and a lager we pour on tap."
-        image="./images/chargrilled-corn.jpg"
+        image="./images/menu-hero.jpg"
       />
 
       <section className="mx-auto max-w-6xl px-5 py-16 lg:px-8">

@@ -11,7 +11,7 @@ export default function LocationPage() {
       <PageHero
         title="Find us in Tempe."
         intro="Stix is the kitchen inside the Riverview Hotel Tempe. Come in through the main hotel entrance and follow the smell of the charcoal."
-        image="./images/greek-flag-wall.jpg"
+        image="./images/location-hero.jpg"
       />
 
       <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8">

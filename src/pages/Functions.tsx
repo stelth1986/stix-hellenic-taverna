@@ -32,7 +32,7 @@ export default function FunctionsPage() {
       <PageHero
         title="Host your next event at Stix."
         intro="Greek hospitality, shared feasting menus and a room inside the Riverview Hotel, with food and drinks packages planned around your occasion."
-        image="./images/hero-flatlay.jpg"
+        image="./images/functions-hero.jpg"
       />
 
       <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
@@ -69,16 +69,11 @@ export default function FunctionsPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div>
             <img
-              src="./images/chicken-wings.jpg"
-              alt="Chargrilled chicken wings shared plate"
-              className="aspect-[3/4] w-full object-cover"
-            />
-            <img
-              src="./images/tomato-salad.jpg"
-              alt="Chargrilled tomato salad"
-              className="mt-10 aspect-[3/4] w-full object-cover"
+              src="./images/functions-event.jpg"
+              alt="A full house at Stix on opening night"
+              className="aspect-[4/3] w-full object-cover shadow-[0_12px_40px_rgba(16,31,69,0.12)]"
             />
           </div>
         </div>

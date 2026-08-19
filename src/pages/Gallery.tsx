@@ -40,7 +40,7 @@ export default function GalleryPage() {
       <PageHero
         title="Gallery."
         intro="Plates from the kitchen, the bar and the room at the Riverview Hotel Tempe."
-        image="./images/wine-bar.jpg"
+        image="./images/hero-flatlay.jpg"
       />
 
       <section className="mx-auto max-w-7xl px-5 py-16 lg:px-8">

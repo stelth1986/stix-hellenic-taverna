@@ -25,6 +25,9 @@ export default async function handler(req, res) {
   }
 
   const isFunction = type === "function";
+  if (isFunction && !phone) {
+    return res.status(400).json({ error: "Please include a phone number so our events team can reach you." });
+  }
   const subject = isFunction
     ? `Function enquiry: ${name}`
     : `Website contact: ${name}`;

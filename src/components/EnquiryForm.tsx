@@ -106,8 +106,16 @@ export default function EnquiryForm({ type }: { type: "contact" | "function" }) 
       </div>
 
       <div className={`grid gap-5 ${type === "function" ? "sm:grid-cols-3" : ""}`}>
-        <Field label="Phone">
-          <input name="phone" type="tel" className={inputCls} placeholder="Optional" />
+        <Field label="Phone" required={type === "function"}>
+          <input
+            name="phone"
+            type="tel"
+            required={type === "function"}
+            className={inputCls}
+            placeholder={
+              type === "function" ? "Best number to call you on" : "Optional"
+            }
+          />
         </Field>
         {type === "function" && (
           <>
