@@ -80,12 +80,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <header className="sticky top-0 z-50 border-b border-border bg-cream/95 backdrop-blur">
         <div className="mx-auto grid max-w-7xl grid-cols-[1fr_auto_1fr] items-center px-5 py-5 lg:px-8">
           {/* Left nav (desktop) / spacer (mobile) */}
-          <nav className="hidden items-center gap-9 lg:flex">
+          <nav className="hidden items-center justify-end gap-9 xl:flex">
             {NAV_LEFT.map((item) => (
               <NavItem key={item.to} {...item} />
             ))}
           </nav>
-          <span className="lg:hidden" />
+          <span className="xl:hidden" />
 
           <Link to="/" className="justify-self-center">
             <img
@@ -95,15 +95,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             />
           </Link>
 
-          <div className="hidden items-center justify-end gap-9 lg:flex">
+          <div className="hidden items-center gap-9 xl:flex">
             {NAV_RIGHT.map((item) => (
               <NavItem key={item.to} {...item} />
             ))}
-            <BookButton className="!px-5 !py-2.5" />
+            <BookButton className="!px-5 !py-2.5 ml-auto" />
           </div>
 
           <button
-            className="justify-self-end text-aegean lg:hidden"
+            className="justify-self-end text-aegean xl:hidden"
             onClick={() => setOpen(!open)}
             aria-label="Toggle menu"
           >
@@ -113,7 +113,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
         {/* Mobile nav */}
         {open && (
-          <nav className="border-t border-border bg-cream px-5 pb-6 pt-2 lg:hidden">
+          <nav className="border-t border-border bg-cream px-5 pb-6 pt-2 xl:hidden">
             {NAV_ALL.map((item) => (
               <NavLink
                 key={item.to}
