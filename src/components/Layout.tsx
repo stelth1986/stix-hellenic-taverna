@@ -87,7 +87,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </nav>
           <span className="xl:hidden" />
 
-          <Link to="/" className="justify-self-center">
+          <Link to="/" className="justify-self-center px-8">
             <img
               src="./images/stix-logo.png"
               alt="Stix Hellenic Taverna"
