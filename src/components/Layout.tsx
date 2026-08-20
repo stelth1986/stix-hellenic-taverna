@@ -23,7 +23,7 @@ function BookButton({ className = "" }: { className?: string }) {
       href={SITE.bookingUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-block bg-aegean px-6 py-3 text-[12px] font-medium uppercase tracking-[0.25em] text-cream transition-colors hover:bg-aegean-deep ${className}`}
+      className={`inline-block whitespace-nowrap bg-aegean px-6 py-3 text-[12px] font-medium uppercase tracking-[0.25em] text-cream transition-colors hover:bg-aegean-deep ${className}`}
     >
       Book a Table
     </a>
@@ -99,7 +99,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             {NAV_RIGHT.map((item) => (
               <NavItem key={item.to} {...item} />
             ))}
-            <BookButton className="!px-5 !py-2.5 ml-auto" />
+            <BookButton className="!px-5 !py-2.5 ml-auto shrink-0" />
           </div>
 
           <button
