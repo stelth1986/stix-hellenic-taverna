@@ -3,15 +3,19 @@ import { Link } from "react-router";
 import PageHero from "@/components/PageHero";
 import EnquiryForm from "@/components/EnquiryForm";
 import { BookButton } from "@/components/Layout";
-import { SITE, HOURS } from "@/data/site";
+import { SITE } from "@/data/site";
+import { useConfig, useHours, img } from "@/lib/config";
 
 export default function LocationPage() {
+  const cfg = useConfig();
+  const hours = useHours();
+
   return (
     <>
       <PageHero
         title="Find us in Tempe."
         intro="Stix is the kitchen inside the Riverview Hotel Tempe. Come in through the main hotel entrance and follow the smell of the charcoal."
-        image="./images/location-hero.jpg"
+        image={img(cfg, "heroLocation", "./images/location-hero.jpg")}
       />
 
       <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
@@ -79,7 +83,7 @@ export default function LocationPage() {
                     <Clock size={14} className="text-gold" /> Kitchen
                   </h3>
                   <ul className="mt-3 space-y-2 text-sm font-light text-foreground/75">
-                    {HOURS.kitchen.map((h) => (
+                    {hours.kitchen.map((h) => (
                       <li key={h.days} className="flex justify-between gap-4 border-b border-border pb-2">
                         <span>{h.days}</span>
                         <span className="text-right">{h.time}</span>
@@ -92,7 +96,7 @@ export default function LocationPage() {
                     <Clock size={14} className="text-gold" /> Hotel Bar
                   </h3>
                   <ul className="mt-3 space-y-2 text-sm font-light text-foreground/75">
-                    {HOURS.hotel.map((h) => (
+                    {hours.hotel.map((h) => (
                       <li key={h.days} className="flex justify-between gap-4 border-b border-border pb-2">
                         <span>{h.days}</span>
                         <span className="text-right">{h.time}</span>
@@ -103,10 +107,10 @@ export default function LocationPage() {
                 <div className="bg-secondary/60 p-5">
                   <p className="text-sm font-light leading-relaxed text-foreground/75">
                     <span className="font-medium text-aegean">Lunch menu:</span>{" "}
-                    {HOURS.lunchMenu.days}, {HOURS.lunchMenu.time}.
+                    {hours.lunchMenu.days}, {hours.lunchMenu.time}.
                     <br />
                     <span className="font-medium text-aegean">Dinner menu:</span>{" "}
-                    {HOURS.dinnerMenu.days}, {HOURS.dinnerMenu.time}.
+                    {hours.dinnerMenu.days}, {hours.dinnerMenu.time}.
                   </p>
                 </div>
               </div>

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router";
 import { Menu, X, MapPin, Phone, Mail, Clock, Instagram, Facebook } from "lucide-react";
-import { SITE, HOURS } from "@/data/site";
+import { SITE } from "@/data/site";
+import { useHours } from "@/lib/config";
 
 const NAV_LEFT = [
   { to: "/", label: "Home" },
@@ -52,6 +53,7 @@ function NavItem({ to, label }: { to: string; label: string }) {
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const hours = useHours();
 
   useEffect(() => {
     setOpen(false);
@@ -195,7 +197,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               Kitchen Hours
             </h3>
             <ul className="mt-5 space-y-3 text-sm text-cream/80">
-              {HOURS.kitchen.map((h) => (
+              {hours.kitchen.map((h) => (
                 <li key={h.days} className="flex items-start gap-3">
                   <Clock size={16} className="mt-0.5 shrink-0 text-gold" />
                   <span>
@@ -213,7 +215,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               The Hotel
             </h3>
             <ul className="mt-5 space-y-3 text-sm text-cream/80">
-              {HOURS.hotel.map((h) => (
+              {hours.hotel.map((h) => (
                 <li key={h.days} className="flex items-start gap-3">
                   <Clock size={16} className="mt-0.5 shrink-0 text-gold" />
                   <span>

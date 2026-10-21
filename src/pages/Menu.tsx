@@ -3,32 +3,14 @@ import { Download } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import { BookButton } from "@/components/Layout";
 import { dinnerMenu, lunchMenu, drinksMenu, type MenuSection } from "@/data/menu";
-import { HOURS } from "@/data/site";
+import { useConfig, useHours, img } from "@/lib/config";
 
 type TabKey = "dinner" | "lunch" | "drinks";
 
-const TABS: { key: TabKey; label: string; availability: string; pdf: string; sections: MenuSection[] }[] = [
-  {
-    key: "lunch",
-    label: "Lunch",
-    availability: `Available ${HOURS.lunchMenu.days}, ${HOURS.lunchMenu.time}`,
-    pdf: "./menus/stix-lunch-menu.pdf",
-    sections: lunchMenu,
-  },
-  {
-    key: "dinner",
-    label: "Dinner",
-    availability: `Available ${HOURS.dinnerMenu.days}, ${HOURS.dinnerMenu.time}`,
-    pdf: "./menus/stix-dinner-menu.pdf",
-    sections: dinnerMenu,
-  },
-  {
-    key: "drinks",
-    label: "Beverages",
-    availability: "Greek wines, beers, spirits & cocktails",
-    pdf: "./menus/stix-beverage-menu.pdf",
-    sections: drinksMenu,
-  },
+const TABS: { key: TabKey; label: string; pdf: string; sections: MenuSection[] }[] = [
+  { key: "lunch", label: "Lunch", pdf: "./menus/stix-lunch-menu.pdf", sections: lunchMenu },
+  { key: "dinner", label: "Dinner", pdf: "./menus/stix-dinner-menu.pdf", sections: dinnerMenu },
+  { key: "drinks", label: "Beverages", pdf: "./menus/stix-beverage-menu.pdf", sections: drinksMenu },
 ];
 
 function Section({ section }: { section: MenuSection }) {
@@ -77,21 +59,32 @@ function Section({ section }: { section: MenuSection }) {
 
 export default function MenuPage() {
   const [tab, setTab] = useState<TabKey>("dinner");
-  const active = TABS.find((t) => t.key === tab)!;
+  const cfg = useConfig();
+  const hours = useHours();
+  const tabs = TABS.map((t) => ({
+    ...t,
+    availability:
+      t.key === "lunch"
+        ? `Available ${hours.lunchMenu.days}, ${hours.lunchMenu.time}`
+        : t.key === "dinner"
+          ? `Available ${hours.dinnerMenu.days}, ${hours.dinnerMenu.time}`
+          : "Greek wines, beers, spirits & cocktails",
+  }));
+  const active = tabs.find((t) => t.key === tab)!;
 
   return (
     <>
       <PageHero
         title="Our menu."
         intro="Dips, salads, charcoal souvla and slow roasts, with Greek wine, ouzo and a lager we pour on tap."
-        image="./images/menu-hero.jpg"
+        image={img(cfg, "heroMenu", "./images/menu-hero.jpg")}
       />
 
       <section className="mx-auto max-w-6xl px-5 py-16 lg:px-8">
         {/* Tabs */}
         <div className="flex flex-col items-center gap-6">
           <div className="flex w-full max-w-md border border-aegean/25">
-            {TABS.map((t) => (
+            {tabs.map((t) => (
               <button
                 key={t.key}
                 onClick={() => setTab(t.key)}

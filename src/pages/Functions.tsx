@@ -2,6 +2,7 @@ import { Phone, Cake, Briefcase, Heart, Users } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import EnquiryForm from "@/components/EnquiryForm";
 import { SITE } from "@/data/site";
+import { useConfig, img } from "@/lib/config";
 
 const OCCASIONS = [
   {
@@ -27,12 +28,14 @@ const OCCASIONS = [
 ];
 
 export default function FunctionsPage() {
+  const cfg = useConfig();
+
   return (
     <>
       <PageHero
         title="Host your next event at Stix."
         intro="Greek hospitality, shared feasting menus and a room inside the Riverview Hotel, with food and drinks packages planned around your occasion."
-        image="./images/functions-hero.jpg"
+        image={img(cfg, "heroFunctions", "./images/functions-hero.jpg")}
       />
 
       <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
@@ -71,7 +74,7 @@ export default function FunctionsPage() {
 
           <div>
             <img
-              src="./images/functions-event.jpg"
+              src={img(cfg, "functionsEvent", "./images/functions-event.jpg")}
               alt="A full house at Stix on opening night"
               className="aspect-[4/3] w-full object-cover shadow-[0_12px_40px_rgba(16,31,69,0.12)]"
             />

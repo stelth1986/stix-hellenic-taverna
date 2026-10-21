@@ -1,4 +1,6 @@
-const RECIPIENT = "stelios@vjbgroup.com.au";
+import { getSettings } from "./_lib/db.js";
+
+const DEFAULT_RECIPIENT = "stelios@vjbgroup.com.au";
 const SENDER = "Stix Hellenic Taverna <stix@vjbgroup.com.au>";
 
 const esc = (s) =>
@@ -28,6 +30,18 @@ export default async function handler(req, res) {
   if (isFunction && !phone) {
     return res.status(400).json({ error: "Please include a phone number so our events team can reach you." });
   }
+
+  // Recipients are editable in the admin panel; fall back to the default.
+  let contactTo = DEFAULT_RECIPIENT;
+  let functionsTo = DEFAULT_RECIPIENT;
+  try {
+    const s = await getSettings();
+    if (s.forms && s.forms.contactTo) contactTo = String(s.forms.contactTo);
+    if (s.forms && s.forms.functionsTo) functionsTo = String(s.forms.functionsTo);
+  } catch (err) {
+    console.error("Could not load form settings, using default recipient", err);
+  }
+  const recipient = isFunction ? functionsTo : contactTo;
   const subject = isFunction
     ? `Function enquiry: ${name}`
     : `Website contact: ${name}`;
@@ -74,7 +88,7 @@ export default async function handler(req, res) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         api_key: process.env.SMTP2GO_API_KEY,
-        to: [RECIPIENT],
+        to: [recipient],
         sender: SENDER,
         custom_headers: [{ header: "Reply-To", value: `${name} <${email}>` }],
         subject,

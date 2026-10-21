@@ -3,14 +3,17 @@ import { Link } from "react-router";
 import PageHero from "@/components/PageHero";
 import EnquiryForm from "@/components/EnquiryForm";
 import { SITE } from "@/data/site";
+import { useConfig, img } from "@/lib/config";
 
 export default function ContactPage() {
+  const cfg = useConfig();
+
   return (
     <>
       <PageHero
         title="Contact us."
         intro="Call the hotel, send us a message below, or come and find us on the Princes Highway in Tempe."
-        image="./images/dinner-menu.jpg"
+        image={img(cfg, "heroContact", "./images/dinner-menu.jpg")}
       />
 
       <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8">

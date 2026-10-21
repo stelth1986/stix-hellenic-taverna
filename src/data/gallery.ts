@@ -1,0 +1,17 @@
+export const DEFAULT_GALLERY = [
+  { src: "./images/hero-flatlay.jpg", caption: "A full table at dinner" },
+  { src: "./images/bbq-octopus.jpg", caption: "BBQ octopus, lemon EVOO emulsion" },
+  { src: "./images/lamb-shoulder.jpg", caption: "11-hour slow roasted lamb shoulder" },
+  { src: "./images/stix-plates.jpg", caption: "Stix skewers with tzatziki and lemon" },
+  { src: "./images/pork-belly-stix.jpg", caption: "Crispy pork belly off the charcoal" },
+  { src: "./images/souvla-wrap-fix.jpg", caption: "Souvla wrap, chips and a cold Fix" },
+  { src: "./images/haloumi-wrap.jpg", caption: "Haloumi souvla wrap" },
+  { src: "./images/chicken-wings.jpg", caption: "Chargrilled chicken wings" },
+  { src: "./images/greek-salad.jpg", caption: "Greek salad, barrel feta" },
+  { src: "./images/haloumi.jpg", caption: "Chargrilled haloumi" },
+  { src: "./images/greek-potatoes.jpg", caption: "Greek potatoes, lemon & oregano" },
+  { src: "./images/horta.jpg", caption: "Horta, seasonal greens with Greek EVOO" },
+  { src: "./images/tomato-salad.jpg", caption: "Chargrilled tomato salad" },
+  { src: "./images/chargrilled-corn.jpg", caption: "Chargrilled corn and Mediterranean slaw" },
+  { src: "./images/wine-bar.jpg", caption: "The bar and its Greek wines" },
+];
