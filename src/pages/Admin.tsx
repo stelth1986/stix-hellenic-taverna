@@ -1,5 +1,17 @@
 import { useEffect, useRef, useState } from "react";
-import { ExternalLink, Loader2, Plus, Trash2, Upload } from "lucide-react";
+import {
+  BarChart3,
+  Clock,
+  ExternalLink,
+  Images,
+  KeyRound,
+  LayoutGrid,
+  Loader2,
+  Mail,
+  Plus,
+  Trash2,
+  Upload,
+} from "lucide-react";
 import { IMAGE_SLOTS } from "@/data/images";
 import { DEFAULT_GALLERY } from "@/data/gallery";
 import { HOURS } from "@/data/site";
@@ -689,9 +701,21 @@ function AccountSection({ email }: { email: string }) {
 
 /* ------------------------------ dashboard ------------------------------ */
 
+const SECTIONS = [
+  { id: "photos", label: "Photos", icon: Images },
+  { id: "gallery", label: "Gallery", icon: LayoutGrid },
+  { id: "forms", label: "Form emails", icon: Mail },
+  { id: "analytics", label: "Google Analytics", icon: BarChart3 },
+  { id: "hours", label: "Opening hours", icon: Clock },
+  { id: "account", label: "Account", icon: KeyRound },
+] as const;
+
+type SectionId = (typeof SECTIONS)[number]["id"];
+
 function Dashboard({ email, onLogout }: { email: string; onLogout: () => void }) {
   const [settings, setSettings] = useState<Settings | null>(null);
   const [loadError, setLoadError] = useState("");
+  const [section, setSection] = useState<SectionId>("photos");
 
   useEffect(() => {
     api("/api/admin/settings")
@@ -726,9 +750,9 @@ function Dashboard({ email, onLogout }: { email: string; onLogout: () => void })
         </div>
       </header>
 
-      <main className="mx-auto max-w-6xl space-y-10 px-5 py-10">
+      <main className="mx-auto max-w-6xl px-5 py-10">
         {loadError && (
-          <p className="border border-terracotta/40 bg-terracotta/10 px-4 py-3 text-sm text-terracotta">
+          <p className="mb-6 border border-terracotta/40 bg-terracotta/10 px-4 py-3 text-sm text-terracotta">
             {loadError}
           </p>
         )}
@@ -738,14 +762,62 @@ function Dashboard({ email, onLogout }: { email: string; onLogout: () => void })
           </p>
         )}
         {settings && (
-          <>
-            <PhotosSection settings={settings} onChange={setSettings} />
-            <GallerySection settings={settings} onChange={setSettings} />
-            <FormsSection settings={settings} onChange={setSettings} />
-            <AnalyticsSection settings={settings} onChange={setSettings} />
-            <HoursSection settings={settings} onChange={setSettings} />
-            <AccountSection email={email} />
-          </>
+          <div className="md:flex md:items-start md:gap-10">
+            {/* Mobile: horizontal section picker */}
+            <nav className="mb-6 flex gap-2 overflow-x-auto pb-1 md:hidden">
+              {SECTIONS.map((s) => (
+                <button
+                  key={s.id}
+                  onClick={() => setSection(s.id)}
+                  className={`flex shrink-0 items-center gap-2 border px-4 py-2 text-[11px] font-medium uppercase tracking-[0.15em] transition-colors ${
+                    section === s.id
+                      ? "border-aegean bg-aegean text-cream"
+                      : "border-border bg-card text-foreground/60 hover:text-aegean"
+                  }`}
+                >
+                  <s.icon size={14} /> {s.label}
+                </button>
+              ))}
+            </nav>
+
+            {/* Desktop: sticky sidebar */}
+            <aside className="hidden w-52 shrink-0 md:block">
+              <nav className="sticky top-10 space-y-1">
+                {SECTIONS.map((s) => (
+                  <button
+                    key={s.id}
+                    onClick={() => setSection(s.id)}
+                    className={`flex w-full items-center gap-3 px-4 py-3 text-left text-[12px] font-medium uppercase tracking-[0.15em] transition-colors ${
+                      section === s.id
+                        ? "bg-aegean text-cream"
+                        : "text-foreground/60 hover:bg-secondary hover:text-aegean"
+                    }`}
+                  >
+                    <s.icon size={15} /> {s.label}
+                  </button>
+                ))}
+              </nav>
+            </aside>
+
+            <div className="min-w-0 flex-1">
+              {section === "photos" && (
+                <PhotosSection settings={settings} onChange={setSettings} />
+              )}
+              {section === "gallery" && (
+                <GallerySection settings={settings} onChange={setSettings} />
+              )}
+              {section === "forms" && (
+                <FormsSection settings={settings} onChange={setSettings} />
+              )}
+              {section === "analytics" && (
+                <AnalyticsSection settings={settings} onChange={setSettings} />
+              )}
+              {section === "hours" && (
+                <HoursSection settings={settings} onChange={setSettings} />
+              )}
+              {section === "account" && <AccountSection email={email} />}
+            </div>
+          </div>
         )}
       </main>
     </div>
