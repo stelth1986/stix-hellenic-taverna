@@ -11,6 +11,8 @@ import {
   Plus,
   Trash2,
   Upload,
+  UserPlus,
+  Users,
 } from "lucide-react";
 import { IMAGE_SLOTS } from "@/data/images";
 import { DEFAULT_GALLERY } from "@/data/gallery";
@@ -699,6 +701,147 @@ function AccountSection({ email }: { email: string }) {
   );
 }
 
+function UsersSection({ you }: { you: string }) {
+  const [users, setUsers] = useState<
+    { id: number; email: string; created_at: string }[] | null
+  >(null);
+  const [newEmail, setNewEmail] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+  const [note, setNote] = useState("");
+
+  async function load() {
+    try {
+      const d = await api("/api/admin/users");
+      setUsers(d.users);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Could not load accounts.");
+    }
+  }
+
+  useEffect(() => {
+    void load();
+  }, []);
+
+  async function addUser(e: React.FormEvent) {
+    e.preventDefault();
+    const email = newEmail.trim().toLowerCase();
+    setBusy(true);
+    setError("");
+    setNote("");
+    try {
+      await api("/api/admin/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      setNewEmail("");
+      setNote(`Account created. We've emailed ${email} their login details.`);
+      void load();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Could not create the account.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function removeUser(email: string) {
+    if (!window.confirm(`Remove the admin account for ${email}?`)) return;
+    setBusy(true);
+    setError("");
+    setNote("");
+    try {
+      await api("/api/admin/users", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      setNote(`Removed ${email}.`);
+      void load();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Could not remove the account.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <Section
+      title="Admin accounts"
+      help="Everyone listed here can log in and change the website. When you add someone, they get an email with the login page and a password."
+    >
+      <form onSubmit={addUser} className="max-w-xl">
+        <label className={labelCls}>Add an admin</label>
+        <div className="flex flex-wrap items-stretch gap-3">
+          <input
+            type="email"
+            value={newEmail}
+            onChange={(e) => setNewEmail(e.target.value)}
+            placeholder="their@email.com"
+            required
+            className={`${inputCls} flex-1`}
+          />
+          <button
+            type="submit"
+            disabled={busy}
+            className="inline-flex items-center gap-2 bg-aegean px-6 py-3 text-[12px] font-medium uppercase tracking-[0.25em] text-cream transition-colors hover:bg-aegean-deep disabled:opacity-60"
+          >
+            {busy ? <Loader2 size={14} className="animate-spin" /> : <UserPlus size={14} />}
+            Create account
+          </button>
+        </div>
+      </form>
+
+      <div className="mt-8 max-w-xl">
+        <p className={labelCls}>Current admins</p>
+        {!users && (
+          <p className="flex items-center gap-3 text-sm text-foreground/60">
+            <Loader2 size={14} className="animate-spin" /> Loading...
+          </p>
+        )}
+        {users && (
+          <ul className="divide-y divide-border border border-border bg-background">
+            {users.map((u) => (
+              <li key={u.id} className="flex items-center justify-between gap-4 px-4 py-3">
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-medium text-aegean-ink">
+                    {u.email}
+                    {u.email === you && (
+                      <span className="ml-2 text-[10px] font-medium uppercase tracking-[0.2em] text-gold">
+                        You
+                      </span>
+                    )}
+                  </p>
+                  <p className="text-xs font-light text-foreground/50">
+                    Added {new Date(u.created_at).toLocaleDateString("en-AU", {
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </p>
+                </div>
+                {u.email !== you && (
+                  <button
+                    type="button"
+                    disabled={busy}
+                    onClick={() => void removeUser(u.email)}
+                    className="p-2 text-foreground/50 transition-colors hover:text-terracotta"
+                    aria-label={`Remove ${u.email}`}
+                  >
+                    <Trash2 size={16} />
+                  </button>
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
+        {note && <p className="mt-3 text-sm text-aegean">{note}</p>}
+        {error && <p className="mt-3 text-sm text-terracotta">{error}</p>}
+      </div>
+    </Section>
+  );
+}
+
 /* ------------------------------ dashboard ------------------------------ */
 
 const SECTIONS = [
@@ -707,6 +850,7 @@ const SECTIONS = [
   { id: "forms", label: "Form emails", icon: Mail },
   { id: "analytics", label: "Google Analytics", icon: BarChart3 },
   { id: "hours", label: "Opening hours", icon: Clock },
+  { id: "users", label: "Admin accounts", icon: Users },
   { id: "account", label: "Account", icon: KeyRound },
 ] as const;
 
@@ -815,6 +959,7 @@ function Dashboard({ email, onLogout }: { email: string; onLogout: () => void })
               {section === "hours" && (
                 <HoursSection settings={settings} onChange={setSettings} />
               )}
+              {section === "users" && <UsersSection you={email} />}
               {section === "account" && <AccountSection email={email} />}
             </div>
           </div>
@@ -827,10 +972,12 @@ function Dashboard({ email, onLogout }: { email: string; onLogout: () => void })
 /* -------------------------------- login -------------------------------- */
 
 function Login({ onSuccess }: { onSuccess: (email: string) => void }) {
+  const [mode, setMode] = useState<"login" | "forgot">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [forgotSent, setForgotSent] = useState(false);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -850,6 +997,173 @@ function Login({ onSuccess }: { onSuccess: (email: string) => void }) {
     }
   }
 
+  async function onForgot(e: React.FormEvent) {
+    e.preventDefault();
+    setBusy(true);
+    setError("");
+    try {
+      await api("/api/admin/forgot", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      setForgotSent(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-secondary/40 px-5">
+      {mode === "forgot" ? (
+        <form
+          onSubmit={onForgot}
+          className="w-full max-w-sm border border-border bg-card p-8 shadow-[0_12px_40px_rgba(16,31,69,0.12)]"
+        >
+          <img src="/images/stix-logo.png" alt="Stix Hellenic Taverna" className="mx-auto h-14 w-auto" />
+          <h1 className="mt-6 text-center font-display text-2xl font-semibold text-aegean-ink">
+            Reset your password
+          </h1>
+          {forgotSent ? (
+            <div className="mt-6 space-y-5">
+              <p className="text-sm font-light leading-relaxed text-foreground/70">
+                If that email has an account, we've sent a link to reset the
+                password. The link works for one hour.
+              </p>
+              <button
+                type="button"
+                onClick={() => {
+                  setMode("login");
+                  setForgotSent(false);
+                }}
+                className="w-full border border-aegean px-6 py-3 text-[12px] font-medium uppercase tracking-[0.25em] text-aegean transition-colors hover:bg-aegean hover:text-cream"
+              >
+                Back to login
+              </button>
+            </div>
+          ) : (
+            <div className="mt-6 space-y-4">
+              <p className="text-sm font-light leading-relaxed text-foreground/70">
+                Enter your email and we'll send you a link to choose a new
+                password.
+              </p>
+              <div>
+                <label className={labelCls}>Email</label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  autoComplete="username"
+                  className={inputCls}
+                />
+              </div>
+              {error && <p className="text-sm text-terracotta">{error}</p>}
+              <button
+                type="submit"
+                disabled={busy}
+                className="w-full bg-aegean px-6 py-3.5 text-[12px] font-medium uppercase tracking-[0.25em] text-cream transition-colors hover:bg-aegean-deep disabled:opacity-60"
+              >
+                {busy ? "Sending..." : "Send reset link"}
+              </button>
+              <button
+                type="button"
+                onClick={() => setMode("login")}
+                className="w-full text-center text-[11px] font-medium uppercase tracking-[0.2em] text-foreground/50 underline underline-offset-4 hover:text-aegean"
+              >
+                Back to login
+              </button>
+            </div>
+          )}
+        </form>
+      ) : (
+        <form
+          onSubmit={onSubmit}
+          className="w-full max-w-sm border border-border bg-card p-8 shadow-[0_12px_40px_rgba(16,31,69,0.12)]"
+        >
+          <img src="/images/stix-logo.png" alt="Stix Hellenic Taverna" className="mx-auto h-14 w-auto" />
+          <h1 className="mt-6 text-center font-display text-2xl font-semibold text-aegean-ink">
+            Website admin
+          </h1>
+          <div className="mt-6 space-y-4">
+            <div>
+              <label className={labelCls}>Email</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                autoComplete="username"
+                className={inputCls}
+              />
+            </div>
+            <div>
+              <label className={labelCls}>Password</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                autoComplete="current-password"
+                className={inputCls}
+              />
+            </div>
+            {error && <p className="text-sm text-terracotta">{error}</p>}
+            <button
+              type="submit"
+              disabled={busy}
+              className="w-full bg-aegean px-6 py-3.5 text-[12px] font-medium uppercase tracking-[0.25em] text-cream transition-colors hover:bg-aegean-deep disabled:opacity-60"
+            >
+              {busy ? "Logging in..." : "Log in"}
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setMode("forgot");
+                setError("");
+              }}
+              className="w-full text-center text-[11px] font-medium uppercase tracking-[0.2em] text-foreground/50 underline underline-offset-4 hover:text-aegean"
+            >
+              Forgot your password?
+            </button>
+          </div>
+        </form>
+      )}
+    </div>
+  );
+}
+
+function ResetPassword({ token }: { token: string }) {
+  const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+  const [done, setDone] = useState(false);
+
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (password !== confirm) {
+      setError("The passwords don't match.");
+      return;
+    }
+    setBusy(true);
+    setError("");
+    try {
+      await api("/api/admin/reset", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token, password }),
+      });
+      setDone(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-secondary/40 px-5">
       <form
@@ -858,40 +1172,56 @@ function Login({ onSuccess }: { onSuccess: (email: string) => void }) {
       >
         <img src="/images/stix-logo.png" alt="Stix Hellenic Taverna" className="mx-auto h-14 w-auto" />
         <h1 className="mt-6 text-center font-display text-2xl font-semibold text-aegean-ink">
-          Website admin
+          Choose a new password
         </h1>
-        <div className="mt-6 space-y-4">
-          <div>
-            <label className={labelCls}>Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              autoComplete="username"
-              className={inputCls}
-            />
+        {done ? (
+          <div className="mt-6 space-y-5">
+            <p className="text-sm font-light leading-relaxed text-foreground/70">
+              Your password has been updated. You can log in with it now.
+            </p>
+            <a
+              href="/admin"
+              className="block w-full bg-aegean px-6 py-3.5 text-center text-[12px] font-medium uppercase tracking-[0.25em] text-cream transition-colors hover:bg-aegean-deep"
+            >
+              Go to login
+            </a>
           </div>
-          <div>
-            <label className={labelCls}>Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              autoComplete="current-password"
-              className={inputCls}
-            />
+        ) : (
+          <div className="mt-6 space-y-4">
+            <div>
+              <label className={labelCls}>New password (8+ characters)</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                minLength={8}
+                autoComplete="new-password"
+                className={inputCls}
+              />
+            </div>
+            <div>
+              <label className={labelCls}>Type it again</label>
+              <input
+                type="password"
+                value={confirm}
+                onChange={(e) => setConfirm(e.target.value)}
+                required
+                minLength={8}
+                autoComplete="new-password"
+                className={inputCls}
+              />
+            </div>
+            {error && <p className="text-sm text-terracotta">{error}</p>}
+            <button
+              type="submit"
+              disabled={busy}
+              className="w-full bg-aegean px-6 py-3.5 text-[12px] font-medium uppercase tracking-[0.25em] text-cream transition-colors hover:bg-aegean-deep disabled:opacity-60"
+            >
+              {busy ? "Saving..." : "Save new password"}
+            </button>
           </div>
-          {error && <p className="text-sm text-terracotta">{error}</p>}
-          <button
-            type="submit"
-            disabled={busy}
-            className="w-full bg-aegean px-6 py-3.5 text-[12px] font-medium uppercase tracking-[0.25em] text-cream transition-colors hover:bg-aegean-deep disabled:opacity-60"
-          >
-            {busy ? "Logging in..." : "Log in"}
-          </button>
-        </div>
+        )}
       </form>
     </div>
   );
@@ -900,16 +1230,26 @@ function Login({ onSuccess }: { onSuccess: (email: string) => void }) {
 /* --------------------------------- page --------------------------------- */
 
 export default function AdminPage() {
+  const [resetToken] = useState(() =>
+    typeof window !== "undefined"
+      ? new URLSearchParams(window.location.search).get("reset")
+      : null
+  );
   const [state, setState] = useState<
     { status: "checking" } | { status: "out" } | { status: "in"; email: string }
   >({ status: "checking" });
 
   useEffect(() => {
+    if (resetToken) return;
     fetch("/api/admin/me")
       .then((r) => (r.ok ? r.json() : Promise.reject()))
       .then((d) => setState({ status: "in", email: d.email }))
       .catch(() => setState({ status: "out" }));
-  }, []);
+  }, [resetToken]);
+
+  if (resetToken) {
+    return <ResetPassword token={resetToken} />;
+  }
 
   if (state.status === "checking") {
     return (

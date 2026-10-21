@@ -27,6 +27,8 @@ export async function ensureSchema() {
         password_hash text not null,
         created_at timestamptz default now()
       )`;
+      await sql`alter table admin_users add column if not exists reset_token text`;
+      await sql`alter table admin_users add column if not exists reset_expires timestamptz`;
     })();
     schemaReady.catch(() => {
       schemaReady = null;
