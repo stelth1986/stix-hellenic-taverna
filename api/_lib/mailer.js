@@ -21,6 +21,7 @@ export async function sendMail({ to, subject, html, text }) {
 }
 
 export function adminOrigin(req) {
+  if (process.env.SITE_URL) return process.env.SITE_URL.replace(/\/$/, "");
   const proto = req.headers["x-forwarded-proto"] || "https";
   return `${proto}://${req.headers.host}`;
 }
