@@ -4,11 +4,11 @@ let client = null;
 let schemaReady = null;
 
 export function hasDb() {
-  return Boolean(process.env.DATABASE_URL);
+  return Boolean(process.env.DATABASE_URL || process.env.POSTGRES_URL);
 }
 
 export function getSql() {
-  if (!client) client = neon(process.env.DATABASE_URL);
+  if (!client) client = neon(process.env.DATABASE_URL || process.env.POSTGRES_URL);
   return client;
 }
 

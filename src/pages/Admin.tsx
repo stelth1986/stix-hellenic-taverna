@@ -50,22 +50,18 @@ async function resizeImage(file: File, maxW = 2000, quality = 0.85): Promise<Blo
 
 async function uploadPhoto(file: File): Promise<string> {
   const blob = await resizeImage(file);
-  const sig = await api("/api/admin/upload-sign");
-  const fd = new FormData();
-  fd.append("file", blob, "photo.jpg");
-  fd.append("api_key", sig.apiKey);
-  fd.append("timestamp", String(sig.timestamp));
-  fd.append("folder", sig.folder);
-  fd.append("signature", sig.signature);
-  const up = await fetch(
-    `https://api.cloudinary.com/v1_1/${sig.cloudName}/image/upload`,
-    { method: "POST", body: fd }
-  );
-  const data = await up.json().catch(() => ({}));
-  if (!up.ok || !data.secure_url) {
-    throw new Error(data?.error?.message || "The upload failed.");
-  }
-  return data.secure_url as string;
+  const base64 = await new Promise<string>((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = () => resolve(String(r.result).split(",")[1]);
+    r.onerror = () => reject(new Error("Could not read that file."));
+    r.readAsDataURL(blob);
+  });
+  const data = await api("/api/admin/upload", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ data: base64 }),
+  });
+  return data.url as string;
 }
 
 /* --------------------------- shared UI bits --------------------------- */
