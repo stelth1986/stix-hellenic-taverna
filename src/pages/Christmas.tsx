@@ -143,6 +143,25 @@ export default function ChristmasPage() {
         </div>
       </section>
 
+      {/* Enquiry form */}
+      <section id="enquiry" className="scroll-mt-32 bg-aegean-ink py-20 text-cream">
+        <div className="mx-auto max-w-3xl px-5">
+          <div className="text-center">
+            <h2 className="font-display text-4xl font-semibold md:text-5xl">
+              Tell us what you’re planning.
+            </h2>
+            <p className="mx-auto mt-5 max-w-xl text-base font-light leading-relaxed text-cream/80">
+              Send through the details below and our events team will come back
+              with availability, menu options and next steps. Prefer to talk?
+              Call {SITE.phoneDisplay}.
+            </p>
+          </div>
+          <div className="mt-10 bg-cream p-7 text-foreground shadow-[0_20px_60px_rgba(0,0,0,0.35)] md:p-10">
+            <EnquiryForm type="christmas" />
+          </div>
+        </div>
+      </section>
+
       {/* Group features */}
       <section className="bg-secondary/60 py-20">
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
@@ -207,24 +226,6 @@ export default function ChristmasPage() {
         </div>
       </section>
 
-      {/* Enquiry form */}
-      <section id="enquiry" className="scroll-mt-32 bg-aegean-ink py-20 text-cream">
-        <div className="mx-auto max-w-3xl px-5">
-          <div className="text-center">
-            <h2 className="font-display text-4xl font-semibold md:text-5xl">
-              Tell us what you’re planning.
-            </h2>
-            <p className="mx-auto mt-5 max-w-xl text-base font-light leading-relaxed text-cream/80">
-              Send through the details below and our events team will come back
-              with availability, menu options and next steps. Prefer to talk?
-              Call {SITE.phoneDisplay}.
-            </p>
-          </div>
-          <div className="mt-10 bg-cream p-7 text-foreground shadow-[0_20px_60px_rgba(0,0,0,0.35)] md:p-10">
-            <EnquiryForm type="christmas" />
-          </div>
-        </div>
-      </section>
 
       {/* FAQs */}
       <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
