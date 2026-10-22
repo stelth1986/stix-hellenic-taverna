@@ -78,10 +78,7 @@ export default function ChristmasPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-aegean-ink/75 via-aegean-ink/60 to-aegean-ink/90" />
         <div className="absolute inset-x-0 top-0 h-2 bg-[#9f2d2d]" />
         <div className="relative mx-auto max-w-5xl px-5 py-28 text-center">
-          <p className="text-[11px] font-medium uppercase tracking-[0.4em] text-gold-light md:text-xs">
-            Christmas parties & festive functions
-          </p>
-          <h1 className="mt-6 font-display text-5xl font-semibold leading-tight md:text-7xl">
+          <h1 className="font-display text-5xl font-semibold leading-tight md:text-7xl">
             Christmas at Stix.
           </h1>
           <span className="key-divider mt-8 bg-gold-light" />
@@ -111,10 +108,7 @@ export default function ChristmasPage() {
       <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
         <div className="grid items-center gap-14 lg:grid-cols-2">
           <div>
-            <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-[#9f2d2d]">
-              Festive feasts, taverna style
-            </p>
-            <h2 className="mt-4 font-display text-4xl font-semibold leading-tight text-aegean-ink md:text-5xl">
+            <h2 className="font-display text-4xl font-semibold leading-tight text-aegean-ink md:text-5xl">
               A Christmas party that feels like a proper gathering.
             </h2>
             <p className="mt-6 text-base font-light leading-relaxed text-foreground/75 md:text-lg">
@@ -145,9 +139,6 @@ export default function ChristmasPage() {
               alt="Jim Kospetas and Elvis Korsovitis wearing Santa hats at the charcoal grill"
               className="aspect-[4/3] w-full object-cover shadow-[0_12px_40px_rgba(16,31,69,0.14)]"
             />
-            <p className="mt-3 text-center text-[11px] font-medium uppercase tracking-[0.22em] text-foreground/50">
-              Jim and Elvis, getting the coals ready for Christmas
-            </p>
           </div>
         </div>
       </section>
@@ -156,10 +147,7 @@ export default function ChristmasPage() {
       <section className="bg-secondary/60 py-20">
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
           <div className="text-center">
-            <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-[#9f2d2d]">
-              Made for groups
-            </p>
-            <h2 className="mt-4 font-display text-4xl font-semibold text-aegean-ink md:text-5xl">
+            <h2 className="font-display text-4xl font-semibold text-aegean-ink md:text-5xl">
               Big tables are our favourite tables.
             </h2>
             <span className="key-divider mt-6" />
@@ -223,10 +211,7 @@ export default function ChristmasPage() {
       <section id="enquiry" className="scroll-mt-32 bg-aegean-ink py-20 text-cream">
         <div className="mx-auto max-w-3xl px-5">
           <div className="text-center">
-            <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-gold-light">
-              Book your Christmas function
-            </p>
-            <h2 className="mt-4 font-display text-4xl font-semibold md:text-5xl">
+            <h2 className="font-display text-4xl font-semibold md:text-5xl">
               Tell us what you’re planning.
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-base font-light leading-relaxed text-cream/80">
@@ -244,10 +229,7 @@ export default function ChristmasPage() {
       {/* FAQs */}
       <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
         <div className="text-center">
-          <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-[#9f2d2d]">
-            Good to know
-          </p>
-          <h2 className="mt-4 font-display text-4xl font-semibold text-aegean-ink md:text-5xl">
+          <h2 className="font-display text-4xl font-semibold text-aegean-ink md:text-5xl">
             Christmas function FAQs
           </h2>
           <span className="key-divider mt-6" />
