@@ -12,23 +12,40 @@ export default async function handler(req, res) {
   }
 
   const body = req.body ?? {};
-  const { type, name, email, phone, date, guests, message, company } = body;
+  const {
+    type,
+    name,
+    email,
+    phone,
+    date,
+    preferredTime,
+    guests,
+    functionType,
+    dietary,
+    message,
+    company,
+  } = body;
 
   // Honeypot: bots fill hidden fields, humans never see this one.
   if (company) {
     return res.status(200).json({ ok: true });
   }
 
-  if (!name || !email || !message) {
+  const isChristmas = type === "christmas";
+  const isFunction = type === "function" || isChristmas;
+
+  if (!name || !email || (!isChristmas && !message)) {
     return res.status(400).json({ error: "Name, email and message are required." });
   }
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(String(email))) {
     return res.status(400).json({ error: "Please enter a valid email address." });
   }
 
-  const isFunction = type === "function";
   if (isFunction && !phone) {
     return res.status(400).json({ error: "Please include a phone number so our events team can reach you." });
+  }
+  if (isChristmas && (!date || !preferredTime || !guests)) {
+    return res.status(400).json({ error: "Please include your preferred date, time and guest numbers." });
   }
 
   // Recipients are editable in the admin panel; fall back to the default.
@@ -42,7 +59,9 @@ export default async function handler(req, res) {
     console.error("Could not load form settings, using default recipient", err);
   }
   const recipient = isFunction ? functionsTo : contactTo;
-  const subject = isFunction
+  const subject = isChristmas
+    ? `Christmas party enquiry: ${name}`
+    : isFunction
     ? `Function enquiry: ${name}`
     : `Website contact: ${name}`;
 
@@ -51,7 +70,10 @@ export default async function handler(req, res) {
     ["Email", email],
     ["Phone", phone],
     isFunction && ["Event date", date],
+    isChristmas && ["Preferred time", preferredTime],
     isFunction && ["Guests", guests],
+    isChristmas && ["Type of function", functionType],
+    isChristmas && ["Dietary requirements", dietary],
     ["Message", message],
   ]
     .filter(Boolean)
@@ -63,21 +85,24 @@ export default async function handler(req, res) {
 
   const html = `
     <div style="font-family:Arial,sans-serif;color:#222;max-width:600px">
-      <h2 style="color:#1e3a8c;margin-bottom:4px">${isFunction ? "Function enquiry" : "Contact message"}</h2>
+      <h2 style="color:#1e3a8c;margin-bottom:4px">${isChristmas ? "Christmas party enquiry" : isFunction ? "Function enquiry" : "Contact message"}</h2>
       <p style="color:#666;margin-top:0">Sent from the Stix Hellenic Taverna website.</p>
       <table style="border-collapse:collapse">${rows}</table>
     </div>`;
 
   const text = [
-    isFunction ? "Function enquiry" : "Contact message",
+    isChristmas ? "Christmas party enquiry" : isFunction ? "Function enquiry" : "Contact message",
     "",
     `Name: ${name}`,
     `Email: ${email}`,
     phone ? `Phone: ${phone}` : null,
     isFunction && date ? `Event date: ${date}` : null,
+    isChristmas && preferredTime ? `Preferred time: ${preferredTime}` : null,
     isFunction && guests ? `Guests: ${guests}` : null,
+    isChristmas && functionType ? `Type of function: ${functionType}` : null,
+    isChristmas && dietary ? `Dietary requirements: ${dietary}` : null,
     "",
-    String(message),
+    String(message || ""),
   ]
     .filter((l) => l !== null && l !== false)
     .join("\n");

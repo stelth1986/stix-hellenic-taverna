@@ -70,6 +70,18 @@ export const IMAGE_SLOTS = [
     fallback: "./images/hero-flatlay.jpg",
   },
   {
+    key: "heroChristmas",
+    label: "Christmas page banner",
+    page: "Christmas",
+    fallback: "./images/functions-hero.jpg",
+  },
+  {
+    key: "christmasStaff",
+    label: "Christmas staff photo",
+    page: "Christmas",
+    fallback: "./images/jim-elvis-christmas.webp",
+  },
+  {
     key: "heroContact",
     label: "Page banner",
     page: "Contact",

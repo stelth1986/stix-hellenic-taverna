@@ -11,6 +11,7 @@ const NAV_LEFT = [
 ];
 
 const NAV_RIGHT = [
+  { to: "/christmas", label: "Christmas" },
   { to: "/functions", label: "Functions" },
   { to: "/gallery", label: "Gallery" },
   { to: "/contact", label: "Contact" },

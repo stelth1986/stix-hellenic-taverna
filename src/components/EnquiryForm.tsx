@@ -27,9 +27,15 @@ function Field({
   );
 }
 
-export default function EnquiryForm({ type }: { type: "contact" | "function" }) {
+export default function EnquiryForm({
+  type,
+}: {
+  type: "contact" | "function" | "christmas";
+}) {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const isFunction = type !== "contact";
+  const isChristmas = type === "christmas";
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -68,6 +74,8 @@ export default function EnquiryForm({ type }: { type: "contact" | "function" }) 
         <p className="mx-auto mt-3 max-w-md text-sm font-light leading-relaxed text-foreground/70">
           {type === "function"
             ? "Your enquiry is on its way. Our events team will get back to you shortly."
+            : type === "christmas"
+              ? "Your Christmas party enquiry is on its way. Our events team will get back to you shortly."
             : "Your message is on its way. We will get back to you shortly."}
         </p>
         <button
@@ -105,15 +113,15 @@ export default function EnquiryForm({ type }: { type: "contact" | "function" }) 
         </Field>
       </div>
 
-      <div className={`grid gap-5 ${type === "function" ? "sm:grid-cols-3" : ""}`}>
-        <Field label="Phone" required={type === "function"}>
+      <div className={`grid gap-5 ${isFunction ? "sm:grid-cols-3" : ""}`}>
+        <Field label="Phone" required={isFunction}>
           <input
             name="phone"
             type="tel"
-            required={type === "function"}
+            required={isFunction}
             className={inputCls}
             placeholder={
-              type === "function" ? "Best number to call you on" : "Optional"
+              isFunction ? "Best number to call you on" : "Optional"
             }
           />
         </Field>
@@ -133,16 +141,81 @@ export default function EnquiryForm({ type }: { type: "contact" | "function" }) 
             </Field>
           </>
         )}
+        {isChristmas && (
+          <>
+            <Field label="Preferred date" required>
+              <input name="date" type="date" required className={inputCls} />
+            </Field>
+            <Field label="Preferred time" required>
+              <select name="preferredTime" required className={inputCls} defaultValue="">
+                <option value="" disabled>
+                  Select a time
+                </option>
+                <option value="Lunch">Lunch</option>
+                <option value="Dinner">Dinner</option>
+                <option value="Either">Either</option>
+              </select>
+            </Field>
+          </>
+        )}
       </div>
 
-      <Field label={type === "function" ? "Tell us about your event" : "Message"} required>
+      {isChristmas && (
+        <div className="grid gap-5 sm:grid-cols-2">
+          <Field label="Number of guests" required>
+            <input
+              name="guests"
+              type="number"
+              min="1"
+              required
+              className={inputCls}
+              placeholder="Approx. number"
+            />
+          </Field>
+          <Field label="Type of function">
+            <select name="functionType" className={inputCls} defaultValue="">
+              <option value="">Select one</option>
+              <option value="Work Christmas party">Work Christmas party</option>
+              <option value="End-of-year team lunch">End-of-year team lunch</option>
+              <option value="Family gathering">Family gathering</option>
+              <option value="Client entertaining">Client entertaining</option>
+              <option value="Festive dinner with friends">Festive dinner with friends</option>
+              <option value="Other">Other</option>
+            </select>
+          </Field>
+        </div>
+      )}
+
+      {isChristmas && (
+        <Field label="Dietary requirements">
+          <textarea
+            name="dietary"
+            rows={3}
+            className={inputCls}
+            placeholder="Allergies, vegetarian, gluten-free or anything else we should cater for"
+          />
+        </Field>
+      )}
+
+      <Field
+        label={
+          isChristmas
+            ? "Anything else we should know?"
+            : type === "function"
+              ? "Tell us about your event"
+              : "Message"
+        }
+        required={!isChristmas}
+      >
         <textarea
           name="message"
-          required
+          required={!isChristmas}
           rows={5}
           className={inputCls}
           placeholder={
-            type === "function"
+            isChristmas
+              ? "Tell us what you are planning, the style of celebration and anything else that would help"
+              : type === "function"
               ? "What are you celebrating, and roughly how many people?"
               : "How can we help?"
           }
@@ -162,7 +235,9 @@ export default function EnquiryForm({ type }: { type: "contact" | "function" }) 
       >
         {status === "sending"
           ? "Sending..."
-          : type === "function"
+          : isChristmas
+            ? "Send My Christmas Party Enquiry"
+            : type === "function"
             ? "Send Enquiry"
             : "Send Message"}
       </button>
