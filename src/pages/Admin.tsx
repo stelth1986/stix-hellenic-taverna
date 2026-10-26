@@ -9,6 +9,7 @@ import {
   Loader2,
   Mail,
   Plus,
+  Search,
   Trash2,
   Upload,
   UserPlus,
@@ -17,6 +18,12 @@ import {
 import { IMAGE_SLOTS } from "@/data/images";
 import { DEFAULT_GALLERY } from "@/data/gallery";
 import { HOURS } from "@/data/site";
+import {
+  DEFAULT_SEO,
+  SEO_PAGES,
+  type PageSeo,
+  type SeoSettings,
+} from "@/data/seo";
 import { absPath, type GalleryItem } from "@/lib/config";
 
 type HoursShape = typeof HOURS;
@@ -27,6 +34,7 @@ type Settings = {
   analytics: { gaId?: string; enabled?: boolean };
   hours: HoursShape | null;
   gallery: GalleryItem[] | null;
+  seo: SeoSettings | null;
 };
 
 const EMPTY: Settings = {
@@ -35,6 +43,7 @@ const EMPTY: Settings = {
   analytics: {},
   hours: null,
   gallery: null,
+  seo: null,
 };
 
 /* ------------------------------ helpers ------------------------------ */
@@ -701,6 +710,237 @@ function AccountSection({ email }: { email: string }) {
   );
 }
 
+function SeoSection({
+  settings,
+  onChange,
+}: {
+  settings: Settings;
+  onChange: (s: Settings) => void;
+}) {
+  const [pages, setPages] = useState<Record<string, Partial<PageSeo>>>(
+    settings.seo?.pages || {}
+  );
+  const [defaultOgImage, setDefaultOgImage] = useState(
+    settings.seo?.defaultOgImage || ""
+  );
+  const [googleVerify, setGoogleVerify] = useState(
+    settings.seo?.googleVerify || ""
+  );
+  const [bingVerify, setBingVerify] = useState(settings.seo?.bingVerify || "");
+  const [openPage, setOpenPage] = useState<string>("home");
+  const [busy, setBusy] = useState(false);
+  const [saved, setSaved] = useState(false);
+  const [error, setError] = useState("");
+
+  function updatePage(key: string, patch: Partial<PageSeo>) {
+    setPages((p) => ({ ...p, [key]: { ...p[key], ...patch } }));
+  }
+
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setBusy(true);
+    setError("");
+    const seo: SeoSettings = {
+      pages,
+      defaultOgImage: defaultOgImage || undefined,
+      googleVerify: googleVerify.trim() || undefined,
+      bingVerify: bingVerify.trim() || undefined,
+    };
+    try {
+      await api("/api/admin/settings", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ seo }),
+      });
+      onChange({ ...settings, seo });
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2500);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Save failed.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  const current = pages[openPage] || {};
+  const def = DEFAULT_SEO[openPage];
+  const pageMeta = SEO_PAGES.find((p) => p.key === openPage)!;
+  const titleVal = current.title ?? def.title;
+  const descVal = current.description ?? def.description;
+
+  return (
+    <Section
+      title="SEO"
+      help="Controls what shows in Google results and when a page is shared on Facebook or messaged to someone. Leave a field on the suggested text if you don't want to change it."
+    >
+      <form onSubmit={onSubmit} className="space-y-10">
+        {/* Site-wide */}
+        <div className="max-w-xl space-y-5">
+          <p className={labelCls}>Site verification</p>
+          <div>
+            <label className={labelCls}>Google Search Console code</label>
+            <input
+              value={googleVerify}
+              onChange={(e) => setGoogleVerify(e.target.value)}
+              placeholder="Paste just the code, not the whole tag"
+              className={inputCls}
+            />
+          </div>
+          <div>
+            <label className={labelCls}>Bing verification code</label>
+            <input
+              value={bingVerify}
+              onChange={(e) => setBingVerify(e.target.value)}
+              placeholder="Optional"
+              className={inputCls}
+            />
+          </div>
+          <div>
+            <label className={labelCls}>Default share image</label>
+            <p className="mb-2 text-xs font-light text-foreground/60">
+              Used when a page doesn't have its own. This is the image people
+              see when a link is shared.
+            </p>
+            <div className="flex items-center gap-4">
+              <img
+                src={defaultOgImage || "/images/hero-flatlay.jpg"}
+                alt="Default share image"
+                className="h-20 w-32 border border-border object-cover"
+              />
+              <UploadButton
+                busy={busy}
+                setBusy={setBusy}
+                onUploaded={(url) => setDefaultOgImage(url)}
+              />
+              {defaultOgImage && (
+                <button
+                  type="button"
+                  onClick={() => setDefaultOgImage("")}
+                  className="text-[11px] font-medium uppercase tracking-[0.2em] text-foreground/50 underline underline-offset-4 hover:text-terracotta"
+                >
+                  Use original
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Per page */}
+        <div>
+          <p className={labelCls}>Pages</p>
+          <div className="mb-6 flex flex-wrap gap-2">
+            {SEO_PAGES.map((p) => (
+              <button
+                key={p.key}
+                type="button"
+                onClick={() => setOpenPage(p.key)}
+                className={`border px-4 py-2 text-[11px] font-medium uppercase tracking-[0.15em] transition-colors ${
+                  openPage === p.key
+                    ? "border-aegean bg-aegean text-cream"
+                    : "border-border bg-background text-foreground/60 hover:text-aegean"
+                }`}
+              >
+                {p.label}
+              </button>
+            ))}
+          </div>
+
+          <div className="max-w-2xl space-y-5">
+            <div>
+              <label className={labelCls}>
+                Google title for {pageMeta.label}
+                <span
+                  className={`ml-3 normal-case tracking-normal ${
+                    titleVal.length > 60 ? "text-terracotta" : "text-foreground/40"
+                  }`}
+                >
+                  {titleVal.length}/60
+                </span>
+              </label>
+              <input
+                value={titleVal}
+                onChange={(e) => updatePage(openPage, { title: e.target.value })}
+                className={inputCls}
+              />
+              <p className="mt-1 text-xs font-light text-foreground/50">
+                Google shows about the first 60 characters.
+              </p>
+            </div>
+            <div>
+              <label className={labelCls}>
+                Google description
+                <span
+                  className={`ml-3 normal-case tracking-normal ${
+                    descVal.length > 160 ? "text-terracotta" : "text-foreground/40"
+                  }`}
+                >
+                  {descVal.length}/160
+                </span>
+              </label>
+              <textarea
+                value={descVal}
+                rows={3}
+                onChange={(e) =>
+                  updatePage(openPage, { description: e.target.value })
+                }
+                className={inputCls}
+              />
+              <p className="mt-1 text-xs font-light text-foreground/50">
+                The line or two under the title in search results. Aim for
+                under 160 characters.
+              </p>
+            </div>
+            <div>
+              <label className={labelCls}>Share image for this page</label>
+              <div className="flex items-center gap-4">
+                {(current.ogImage || "") && (
+                  <img
+                    src={current.ogImage}
+                    alt=""
+                    className="h-20 w-32 border border-border object-cover"
+                  />
+                )}
+                <UploadButton
+                  busy={busy}
+                  setBusy={setBusy}
+                  label={current.ogImage ? "Replace photo" : "Set a photo"}
+                  onUploaded={(url) => updatePage(openPage, { ogImage: url })}
+                />
+                {current.ogImage && (
+                  <button
+                    type="button"
+                    onClick={() => updatePage(openPage, { ogImage: undefined })}
+                    className="text-[11px] font-medium uppercase tracking-[0.2em] text-foreground/50 underline underline-offset-4 hover:text-terracotta"
+                  >
+                    Use default
+                  </button>
+                )}
+              </div>
+            </div>
+            <label className="flex items-center gap-3 text-sm font-light text-foreground/75">
+              <input
+                type="checkbox"
+                checked={Boolean(current.noindex)}
+                onChange={(e) =>
+                  updatePage(openPage, { noindex: e.target.checked || undefined })
+                }
+                className="h-4 w-4 accent-aegean"
+              />
+              Hide this page from Google
+            </label>
+          </div>
+        </div>
+
+        <div className="flex items-center">
+          <SaveButton busy={busy} />
+          <SavedNote show={saved} />
+          {error && <span className="ml-4 text-sm text-terracotta">{error}</span>}
+        </div>
+      </form>
+    </Section>
+  );
+}
+
 function UsersSection({ you }: { you: string }) {
   const [users, setUsers] = useState<
     { id: number; email: string; created_at: string }[] | null
@@ -849,6 +1089,7 @@ const SECTIONS = [
   { id: "gallery", label: "Gallery", icon: LayoutGrid },
   { id: "forms", label: "Form emails", icon: Mail },
   { id: "analytics", label: "Google Analytics", icon: BarChart3 },
+  { id: "seo", label: "SEO", icon: Search },
   { id: "hours", label: "Opening hours", icon: Clock },
   { id: "users", label: "Admin accounts", icon: Users },
   { id: "account", label: "Account", icon: KeyRound },
@@ -955,6 +1196,9 @@ function Dashboard({ email, onLogout }: { email: string; onLogout: () => void })
               )}
               {section === "analytics" && (
                 <AnalyticsSection settings={settings} onChange={setSettings} />
+              )}
+              {section === "seo" && (
+                <SeoSection settings={settings} onChange={setSettings} />
               )}
               {section === "hours" && (
                 <HoursSection settings={settings} onChange={setSettings} />

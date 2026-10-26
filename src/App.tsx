@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Routes, Route, useLocation } from "react-router";
 import Layout from "./components/Layout";
+import Seo from "./components/Seo";
 import { ConfigProvider } from "./lib/config";
 import { track } from "./lib/pixel";
 import Home from "./pages/Home";
@@ -46,6 +47,7 @@ export default function App() {
   return (
     <ConfigProvider>
       <PixelTracker />
+      <Seo />
       <Routes>
         <Route path="/admin" element={<AdminPage />} />
         <Route

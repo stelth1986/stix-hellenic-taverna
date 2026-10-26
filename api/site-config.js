@@ -10,10 +10,11 @@ export default async function handler(req, res) {
       analytics: s.analytics || {},
       hours: s.hours || null,
       gallery: s.gallery || null,
+      seo: s.seo || null,
     });
   } catch (err) {
     console.error("site-config failed", err);
     // Site must keep working with bundled defaults even if the DB is down.
-    return res.status(200).json({ images: {}, analytics: {}, hours: null, gallery: null });
+    return res.status(200).json({ images: {}, analytics: {}, hours: null, gallery: null, seo: null });
   }
 }

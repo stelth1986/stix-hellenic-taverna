@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /christmas/thank-you
+
+Sitemap: https://www.stixtaverna.com.au/sitemap.xml

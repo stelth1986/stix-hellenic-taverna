@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { HOURS } from "@/data/site";
+import type { SeoSettings } from "@/data/seo";
 
 export type GalleryItem = { src: string; caption: string };
 
@@ -8,9 +9,10 @@ export type SiteConfig = {
   analytics: { gaId?: string; enabled?: boolean };
   hours: typeof HOURS | null;
   gallery: GalleryItem[] | null;
+  seo: SeoSettings | null;
 };
 
-const DEFAULTS: SiteConfig = { images: {}, analytics: {}, hours: null, gallery: null };
+const DEFAULTS: SiteConfig = { images: {}, analytics: {}, hours: null, gallery: null, seo: null };
 
 const Ctx = createContext<SiteConfig>(DEFAULTS);
 

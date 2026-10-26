@@ -1,7 +1,7 @@
 import { hasDb, getSettings, setSetting } from "../_lib/db.js";
 import { requireAdmin } from "../_lib/auth.js";
 
-const ALLOWED_KEYS = new Set(["images", "forms", "analytics", "hours", "gallery"]);
+const ALLOWED_KEYS = new Set(["images", "forms", "analytics", "hours", "gallery", "seo"]);
 
 export default async function handler(req, res) {
   if (!requireAdmin(req, res)) return;
