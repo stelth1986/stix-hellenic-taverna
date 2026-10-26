@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import { track } from "@/lib/pixel";
 
 type Status = "idle" | "sending" | "sent" | "error";
@@ -35,6 +36,7 @@ export default function EnquiryForm({
 }) {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const navigate = useNavigate();
   const isFunction = type !== "contact";
   const isChristmas = type === "christmas";
 
@@ -54,7 +56,17 @@ export default function EnquiryForm({
       });
       const json = await r.json().catch(() => ({}));
       if (r.ok && json.ok) {
-        track("Lead", { content_name: type === "function" ? "Function enquiry" : "Contact form" });
+        track("Lead", {
+          content_name: isChristmas
+            ? "Christmas party enquiry"
+            : type === "function"
+              ? "Function enquiry"
+              : "Contact form",
+        });
+        if (isChristmas) {
+          navigate("/christmas/thank-you");
+          return;
+        }
         setStatus("sent");
         form.reset();
       } else {
