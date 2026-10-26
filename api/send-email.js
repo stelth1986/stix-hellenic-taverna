@@ -51,14 +51,20 @@ export default async function handler(req, res) {
   // Recipients are editable in the admin panel; fall back to the default.
   let contactTo = DEFAULT_RECIPIENT;
   let functionsTo = DEFAULT_RECIPIENT;
+  let christmasTo = "";
   try {
     const s = await getSettings();
     if (s.forms && s.forms.contactTo) contactTo = String(s.forms.contactTo);
     if (s.forms && s.forms.functionsTo) functionsTo = String(s.forms.functionsTo);
+    if (s.forms && s.forms.christmasTo) christmasTo = String(s.forms.christmasTo);
   } catch (err) {
     console.error("Could not load form settings, using default recipient", err);
   }
-  const recipient = isFunction ? functionsTo : contactTo;
+  const recipient = isChristmas
+    ? christmasTo || functionsTo
+    : isFunction
+      ? functionsTo
+      : contactTo;
   const subject = isChristmas
     ? `Christmas party enquiry: ${name}`
     : isFunction

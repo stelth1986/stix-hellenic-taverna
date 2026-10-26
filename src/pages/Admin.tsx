@@ -30,7 +30,7 @@ type HoursShape = typeof HOURS;
 
 type Settings = {
   images: Record<string, string>;
-  forms: { contactTo?: string; functionsTo?: string };
+  forms: { contactTo?: string; functionsTo?: string; christmasTo?: string };
   analytics: { gaId?: string; enabled?: boolean };
   hours: HoursShape | null;
   gallery: GalleryItem[] | null;
@@ -352,6 +352,7 @@ function FormsSection({
 }) {
   const [contactTo, setContactTo] = useState(settings.forms.contactTo || "");
   const [functionsTo, setFunctionsTo] = useState(settings.forms.functionsTo || "");
+  const [christmasTo, setChristmasTo] = useState(settings.forms.christmasTo || "");
   const [busy, setBusy] = useState(false);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState("");
@@ -363,6 +364,7 @@ function FormsSection({
     const forms = {
       contactTo: contactTo.trim() || "stelios@vjbgroup.com.au",
       functionsTo: functionsTo.trim() || "stelios@vjbgroup.com.au",
+      christmasTo: christmasTo.trim(),
     };
     try {
       await api("/api/admin/settings", {
@@ -405,6 +407,20 @@ function FormsSection({
             placeholder="stelios@vjbgroup.com.au"
             className={inputCls}
           />
+        </div>
+        <div>
+          <label className={labelCls}>Christmas party enquiries go to</label>
+          <input
+            type="email"
+            value={christmasTo}
+            onChange={(e) => setChristmasTo(e.target.value)}
+            placeholder="Leave empty to use the function enquiries address"
+            className={inputCls}
+          />
+          <p className="mt-1 text-xs font-light text-foreground/50">
+            If this is empty, Christmas enquiries go to the function enquiries
+            address above.
+          </p>
         </div>
         <div className="flex items-center">
           <SaveButton busy={busy} />
