@@ -22,10 +22,11 @@ export const SITE = {
 export const HOURS = {
   hotel: [{ days: "Monday – Sunday", time: "10am – 12am" }],
   kitchen: [
-    { days: "Monday – Friday", time: "12pm – 3pm & 5pm – 10pm" },
+    { days: "Monday", time: "Closed" },
+    { days: "Tuesday – Friday", time: "12pm – 3pm & 5pm – 10pm" },
     { days: "Saturday – Sunday", time: "12pm – 10pm" },
   ],
-  lunchMenu: { days: "Tuesday – Thursday", time: "12pm – 3pm" },
+  lunchMenu: { days: "Tuesday – Friday", time: "12pm – 3pm" },
   dinnerMenu: { days: "Friday – Sunday", time: "12pm – 9pm" },
 };
 
