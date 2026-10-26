@@ -39,7 +39,10 @@ export default function Seo() {
     const title = over.title?.trim() || def.title;
     const desc = over.description?.trim() || def.description;
     const ogImage =
-      over.ogImage || cfg.seo?.defaultOgImage || "/images/hero-flatlay.jpg";
+      over.ogImage ||
+      def.ogImage ||
+      cfg.seo?.defaultOgImage ||
+      "/images/hero-flatlay.jpg";
     const ogImageAbs = ogImage.startsWith("http")
       ? ogImage
       : `${origin}${ogImage.startsWith("/") ? ogImage : `/${ogImage}`}`;

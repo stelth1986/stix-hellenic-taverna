@@ -27,35 +27,42 @@ export const DEFAULT_SEO: Record<string, PageSeo> = {
     title: "Stix Hellenic Taverna | Greek Kitchen at the Riverview Hotel, Tempe",
     description:
       "Classical Greek cuisine designed for sharing, inside the Riverview Hotel, 900 Princes Hwy Tempe NSW. Charcoal souvla, rotisserie cooking and bold Greek flavour.",
+    ogImage: "/images/hero-flatlay.jpg",
   },
   menu: {
     title: "Our Menu | Stix Hellenic Taverna, Tempe",
     description:
       "Lunch, dinner and drinks at Stix Hellenic Taverna. Charcoal skewers, souvla, fresh seafood, share-style starters and Greek wines at the Riverview Hotel, Tempe.",
+    ogImage: "/images/menu-hero.jpg",
   },
   functions: {
     title: "Functions and Group Bookings | Stix Hellenic Taverna, Tempe",
     description:
       "Birthdays, work parties, long lunches and big family tables. Send a function enquiry and the Stix events team will help plan the food, drinks and timing.",
+    ogImage: "/images/functions-hero.jpg",
   },
   christmas: {
     title: "Christmas Parties | Stix Hellenic Taverna, Tempe",
     description:
       "Book your work Christmas party or end-of-year celebration at Stix Hellenic Taverna. Set menus, drinks packages and share-style Greek feasts for groups.",
+    ogImage: "/images/jim-elvis-christmas.webp",
   },
   location: {
     title: "Find Us | Stix Hellenic Taverna, Riverview Hotel Tempe",
     description:
       "Stix Hellenic Taverna is inside the Riverview Hotel at 900 Princes Hwy, Tempe NSW. Opening hours, parking and directions.",
+    ogImage: "/images/location-hero.jpg",
   },
   gallery: {
     title: "Gallery | Stix Hellenic Taverna, Tempe",
     description:
       "Charcoal souvla, packed dining rooms and Greek hospitality. A look inside Stix Hellenic Taverna at the Riverview Hotel, Tempe.",
+    ogImage: "/images/stix-plates.jpg",
   },
   contact: {
     title: "Contact Us | Stix Hellenic Taverna, Tempe",
     description:
       "Get in touch with Stix Hellenic Taverna at the Riverview Hotel, 900 Princes Hwy Tempe. Call (02) 8080 7072 or send us a message.",
+    ogImage: "/images/dinner-menu.jpg",
   },
 };

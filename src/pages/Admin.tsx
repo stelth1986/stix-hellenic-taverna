@@ -893,17 +893,20 @@ function SeoSection({
             <div>
               <label className={labelCls}>Share image for this page</label>
               <div className="flex items-center gap-4">
-                {(current.ogImage || "") && (
-                  <img
-                    src={current.ogImage}
-                    alt=""
-                    className="h-20 w-32 border border-border object-cover"
-                  />
-                )}
+                <img
+                  src={
+                    current.ogImage ||
+                    def.ogImage ||
+                    defaultOgImage ||
+                    "/images/hero-flatlay.jpg"
+                  }
+                  alt="Share image preview"
+                  className="h-20 w-32 border border-border object-cover"
+                />
                 <UploadButton
                   busy={busy}
                   setBusy={setBusy}
-                  label={current.ogImage ? "Replace photo" : "Set a photo"}
+                  label={current.ogImage ? "Replace photo" : "Change photo"}
                   onUploaded={(url) => updatePage(openPage, { ogImage: url })}
                 />
                 {current.ogImage && (
