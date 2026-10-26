@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { track } from "@/lib/pixel";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
@@ -53,6 +54,7 @@ export default function EnquiryForm({
       });
       const json = await r.json().catch(() => ({}));
       if (r.ok && json.ok) {
+        track("Lead", { content_name: type === "function" ? "Function enquiry" : "Contact form" });
         setStatus("sent");
         form.reset();
       } else {
