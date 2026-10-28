@@ -11,49 +11,27 @@ export type MenuSection = {
   items: MenuItem[];
 };
 
-/* ------------------------------ DINNER (A4) ------------------------------ */
+/* --------------------------- DINNER (OCT 2026) --------------------------- */
 
 export const dinnerMenu: MenuSection[] = [
   {
-    title: "Small Shares",
+    title: "Dips & Bread",
     items: [
       { name: "Greek Olives", price: "7" },
-      { name: "Pickled Chikory", price: "12" },
-      { name: "Woodfire Greek Bread", price: "9" },
+      { name: "Pickled Chikory", price: "10" },
+      { name: "Wood-fire Greek Bread", price: "9" },
       { name: "Greek Pita Bread", price: "11" },
       { name: "Tzatziki", price: "12", desc: "cucumber, garlic, yoghurt", tags: "v, gf" },
-      { name: "Tarama", price: "12", desc: "fish roe, lemon, garlic" },
+      { name: "Tarama", price: "12", desc: "fish roe, lemon, garlic", tags: "a" },
       { name: "Tirokafteri", price: "12", desc: "feta, red pepper, bukovo", tags: "v, gf" },
       { name: "Trio of Dips", price: "26", desc: "all three dips & pita bread" },
-      { name: "Chargrilled Corn", price: "14", tags: "v" },
-      {
-        name: "Greek Potatoes",
-        price: "15",
-        desc: "baked potatoes, lemon, oregano, extra virgin olive oil",
-        tags: "v",
-      },
-      { name: "Horta", price: "18", desc: "seasonal local greens with lemon & Greek EVOO" },
-      { name: "Fries", price: "14", desc: "add feta +$2", tags: "v, gf" },
     ],
   },
   {
-    title: "Medium Shares",
+    title: "Cheese & Pastry",
     items: [
       {
-        name: "Mediterranean Slaw",
-        price: "15",
-        desc: "green & red cabbage, carrot, vinegar dressing",
-        tags: "v, gf",
-      },
-      { name: "Tomato Salad", price: "17", desc: "tomato, balsamic vinaigrette", tags: "v, gf" },
-      {
-        name: "Greek Salad",
-        price: "19",
-        desc: "tomato, cucumber, Spanish onion, green peppers, feta, Kalamata olives, oregano",
-        tags: "v, gf",
-      },
-      {
-        name: "Chargrilled Haloumi",
+        name: "Chargrilled Halloumi",
         price: "20",
         desc: "lemon, oregano, extra virgin olive oil",
         tags: "v, gf",
@@ -62,29 +40,48 @@ export const dinnerMenu: MenuSection[] = [
       {
         name: "Spanakopita",
         price: "24",
-        desc: "hand-made pastry with local spinach & feta cheese",
+        desc: "handmade pastry with local spinach & feta cheese",
         tags: "v",
       },
-      { name: "Calamari", price: "25", desc: "lightly floured & pan fried", tags: "gf" },
-      { name: "Chargrilled Chicken Wings", price: "18" },
-      { name: "Bifteki", price: "22", desc: "Greek style beef meatball, lemon, onion" },
+      {
+        name: "Tiropita",
+        price: "19",
+        desc: "house-made feta & ricotta pastry with thyme & honey, or plain",
+      },
     ],
   },
   {
-    title: "Large Shares",
+    title: "Staples",
     items: [
+      { name: "Dakos Salad", price: "18", desc: "tomatoes, Cretan cheese, rusk bread" },
       {
-        name: "BBQ Octopus",
-        price: "30",
-        desc: "Western Australian octopus, chargrilled and dressed with lemon EVOO emulsion",
+        name: "Mediterranean Slaw",
+        price: "16",
+        desc: "green & red cabbage, carrot, vinegar",
+        tags: "v, gf",
       },
+      { name: "Tomato Salad", price: "18", desc: "tomato, balsamic vinaigrette", tags: "v, gf" },
       {
-        name: "Charcoal Fish of the Day",
-        price: "38",
-        desc: "chargrilled with head on and butterflied, boneless, served with wilted greens, lemon EVOO dressing. Ask the staff what fish is on today",
+        name: "Greek Salad",
+        price: "19",
+        desc: "tomato, cucumber, Spanish onion, green peppers, feta, Kalamata olives, oregano",
+        tags: "v, gf",
       },
-      { name: "Slow Roasted Lamb Shoulder", price: "35", desc: "11hr slow braised lamb shoulder" },
-      { name: "Chargrilled Pork Loin", price: "32", desc: "chargrilled, bone in" },
+      { name: "Horta", price: "18", desc: "seasonal local greens with lemon & Greek EVOO" },
+      { name: "Chargrilled Corn", price: "14", tags: "v" },
+      { name: "Greek Potatoes", price: "16", desc: "baked potatoes, lemon, oregano, EVOO", tags: "v" },
+      { name: "Fries", price: "14", desc: "add feta +$2", tags: "v, gf" },
+      { name: "Calamari", price: "25", desc: "lightly floured & pan fried", tags: "gf, i" },
+    ],
+  },
+  {
+    title: "Souvla",
+    note: "Cooked over charcoal · order by weight · 200g / 500g",
+    items: [
+      { name: "Chicken", price: "24 / 52" },
+      { name: "Lamb", price: "32 / 67" },
+      { name: "Pork", price: "28 / 60" },
+      { name: "Crispy Pork Belly", price: "30 / 62" },
     ],
   },
   {
@@ -98,21 +95,62 @@ export const dinnerMenu: MenuSection[] = [
   },
   {
     title: "Souvla Wraps",
-    note: "Served with chips",
+    note: "All served with chips",
     items: [
-      { name: "Lamb", price: "25", desc: "tomato, onion, tzatziki" },
-      { name: "Pork", price: "23", desc: "tomato, onion, tzatziki" },
-      { name: "Chicken", price: "22", desc: "tomato, onion, tzatziki" },
-      { name: "Haloumi", price: "25", desc: "tomato, onion, tzatziki" },
+      { name: "Halloumi", price: "25", desc: "tomato, onion, tzatziki" },
+      { name: "Chicken", price: "24", desc: "tomato, onion, tzatziki" },
+      { name: "Pork", price: "24", desc: "tomato, onion, tzatziki" },
+      { name: "Lamb Shoulder", price: "26", desc: "tomato, onion, tzatziki" },
     ],
   },
   {
-    title: "Souvla Meat Cooked Over Charcoal",
+    title: "From the Charcoal",
     items: [
-      { name: "Chicken", price: "22 / 52", desc: "200g / 500g" },
-      { name: "Lamb", price: "30 / 65", desc: "200g / 500g" },
-      { name: "Pork", price: "28 / 60", desc: "200g / 500g" },
-      { name: "Crispy Pork Belly", price: "28 / 60", desc: "200g / 500g" },
+      {
+        name: "Australian King Prawns (2)",
+        price: "22",
+        desc: "tsipouro, garlic butter. Add additional prawn +$10",
+        tags: "a",
+      },
+      {
+        name: "BBQ Octopus",
+        price: "M.P",
+        desc: "Western Australian octopus, chargrilled and dressed with lemon EVOO emulsion",
+        tags: "a",
+      },
+      {
+        name: "Charcoal Fish of the Day",
+        price: "38",
+        desc: "chargrilled and butterflied, boneless, served with wilted greens, lemon EVOO dressing",
+        tags: "a",
+      },
+      {
+        name: "House Made Sausages",
+        price: "19",
+        desc: "pork sausages over charcoal, kefalograviera & ouzo",
+      },
+      { name: "Chargrilled Chicken Wings", price: "18" },
+      { name: "Chargrilled Pork Loin", price: "32", desc: "chargrilled, bone in" },
+      { name: "Bifteki", price: "22", desc: "Greek style beef meatball, lemon, onion" },
+      {
+        name: "Angus Grass Fed T-Bone",
+        price: "45",
+        desc: "400g, riganolado (Greek lemon sauce), chips",
+      },
+      { name: "Slow Braised Lamb Shoulder", price: "35", desc: "11hr slow braised lamb shoulder" },
+    ],
+  },
+  {
+    title: "Desserts",
+    items: [
+      { name: "Bougatsa", price: "17", desc: "served with ice cream" },
+      { name: "Chocolate Cake", price: "17", desc: "served with ice cream" },
+      { name: "Bread Pudding", price: "17", desc: "ekmek" },
+      {
+        name: "House Strained Greek Yoghurt",
+        price: "15",
+        desc: "choose home-made sour cherry compote or honey & walnut",
+      },
     ],
   },
   {
@@ -122,78 +160,48 @@ export const dinnerMenu: MenuSection[] = [
     ],
   },
   {
-    title: "Desserts",
+    title: "Set Menu",
+    note: "$79 per person",
     items: [
-      { name: "Bougatsa", price: "17", desc: "served with ice cream" },
-      { name: "Chocolate Cake", price: "17", desc: "served with ice cream" },
-      { name: "Bread Pudding", price: "17", desc: "ekmek" },
+      {
+        name: "Set Menu",
+        price: "79pp",
+        desc: "Greek salad, trio of dips with pita bread (tzatziki, tarama, tirokafteri), grilled halloumi cheese, pan fried calamari, homemade spanakopita, all the souvla meats (chicken, lamb & pork) on organic charcoal, fries. Dessert: bougatsa & ekmek",
+      },
+      { name: "Kids Plate", price: "30", desc: "souvla, pita, fries & ice cream" },
+      { name: "Add on: Prawns Saganaki", price: "14pp", desc: "tomato saltsa & feta cheese", tags: "a" },
+      {
+        name: "Add on: BBQ Octopus",
+        price: "10pp",
+        desc: "Western Australian octopus, char-grilled & dressed with lemon EVOO emulsion",
+        tags: "a",
+      },
+      { name: "Add on: Saganaki Cheese", price: "8pp", desc: "honey & roasted walnuts" },
+      {
+        name: "Add on: Spanakopita",
+        price: "6pp",
+        desc: "hand-made pastry with local spinach & feta cheese",
+      },
+      {
+        name: "Add on: Greek Potatoes",
+        price: "6pp",
+        desc: "baked potatoes, lemon, oregano, extra virgin olive oil",
+      },
+      { name: "Add on: Horta", price: "5pp", desc: "seasonal local greens with lemon & Greek EVOO" },
+      { name: "Add on: Char-grilled Corn", price: "4pp" },
     ],
   },
 ];
 
-/* ------------------------------- LUNCH ----------------------------------- */
+/* ---------------------------- LUNCH (OCT 2026) --------------------------- */
 
 export const lunchMenu: MenuSection[] = [
-  {
-    title: "Souvla Wraps",
-    note: "Served with chips",
-    items: [
-      { name: "Haloumi", price: "25", desc: "tomato, onion, tzatziki" },
-      { name: "Chicken", price: "22", desc: "tomato, onion, tzatziki" },
-      { name: "Pork", price: "23", desc: "tomato, onion, tzatziki" },
-      { name: "Lamb Shoulder", price: "25", desc: "tomato, onion, tzatziki" },
-    ],
-  },
-  {
-    title: "Burgers",
-    items: [
-      {
-        name: "Battered Fish Burger",
-        price: "24",
-        desc: "special mayo, lettuce, pickles, American cheese & hash brown",
-      },
-      {
-        name: "Chargrilled Chicken Burger",
-        price: "30",
-        desc: "special mayo, lettuce, pickles, American cheese & Stix chilli sauce",
-      },
-      {
-        name: "Classic Cheeseburger",
-        price: "22",
-        desc: "pickles, American cheese, tomato sauce. Add lettuce and tomato +$2",
-      },
-      { name: "Stix Beef Burger", price: "24", desc: "special mayo, lettuce, pickles & American cheese" },
-      {
-        name: "Teras Burger",
-        price: "30",
-        desc: "two chargrilled beef patties, crispy pork belly, onion rings, BBQ sauce, pickles & American cheese",
-      },
-    ],
-  },
-  {
-    title: "Salads",
-    items: [
-      {
-        name: "Mediterranean Slaw",
-        price: "15",
-        desc: "green & red cabbage, carrot, vinegar dressing",
-        tags: "v, gf",
-      },
-      { name: "Tomato Salad", price: "17", desc: "tomato, balsamic vinaigrette", tags: "v, gf" },
-      {
-        name: "Greek Salad",
-        price: "19",
-        desc: "tomato, cucumber, Spanish onion, green peppers, feta, Kalamata olives, oregano",
-        tags: "v, gf",
-      },
-    ],
-  },
   {
     title: "Pita & Dips",
     items: [
       { name: "Greek Pita Bread", price: "11" },
       { name: "Tzatziki", price: "12", desc: "cucumber, garlic, yoghurt", tags: "v, gf" },
-      { name: "Tarama", price: "12", desc: "fish roe, lemon, garlic" },
+      { name: "Tarama", price: "12", desc: "fish roe, lemon, garlic", tags: "a" },
       { name: "Tirokafteri", price: "12", desc: "feta, red pepper, bukovo", tags: "v, gf" },
       { name: "Trio of Dips", price: "26", desc: "all three dips & pita bread" },
     ],
@@ -210,30 +218,78 @@ export const lunchMenu: MenuSection[] = [
         tags: "v",
       },
       {
-        name: "Chargrilled Haloumi",
+        name: "Chargrilled Halloumi",
         price: "20",
         desc: "lemon, oregano, extra virgin olive oil",
         tags: "v, gf",
       },
-      { name: "Calamari", price: "25", desc: "lightly floured & pan fried", tags: "gf" },
-      { name: "Chargrilled Chicken Wings", price: "18" },
-      { name: "Slow Roasted Lamb Shoulder", price: "35", desc: "11hr slow braised lamb shoulder" },
-    ],
-  },
-  {
-    title: "Soup",
-    items: [
+      { name: "Calamari", price: "25", desc: "lightly floured & pan fried", tags: "gf, i" },
       {
-        name: "Lentil Soup",
-        price: "18",
-        desc: "served with chargrilled bread. Add lamb shoulder +$9",
+        name: "BBQ Octopus",
+        price: "M.P",
+        desc: "Western Australian octopus, chargrilled and dressed with lemon EVOO emulsion",
+        tags: "a",
+      },
+      { name: "Chargrilled Chicken Wings", price: "18" },
+      { name: "Slow Braised Lamb Shoulder", price: "35", desc: "11hr slow braised lamb shoulder" },
+      {
+        name: "Angus Grass Fed T-Bone",
+        price: "45",
+        desc: "400g, riganolado (Greek lemon sauce), chips",
       },
     ],
   },
   {
-    title: "Add Ons",
+    title: "Achilles Plate",
     items: [
-      { name: "Haloumi Cheese", price: "6" },
+      { name: "Chicken or Pork", price: "29", desc: "chips, Greek salad, tzatziki, pita" },
+      { name: "Lamb", price: "34", desc: "chips, Greek salad, tzatziki, pita" },
+    ],
+  },
+  {
+    title: "Souvla Wraps",
+    note: "All served with chips",
+    items: [
+      { name: "Halloumi", price: "25", desc: "tomato, onion, tzatziki" },
+      { name: "Chicken", price: "24", desc: "tomato, onion, tzatziki" },
+      { name: "Pork", price: "24", desc: "tomato, onion, tzatziki" },
+      { name: "Lamb Shoulder", price: "26", desc: "tomato, onion, tzatziki" },
+    ],
+  },
+  {
+    title: "Burgers",
+    note: "All served with chips",
+    items: [
+      {
+        name: "Classic Cheeseburger",
+        price: "22",
+        desc: "pickles, American cheese, tomato sauce. Add lettuce & tomato +$2 / pork belly +$4",
+      },
+    ],
+  },
+  {
+    title: "Salads",
+    items: [
+      {
+        name: "Mediterranean Slaw",
+        price: "16",
+        desc: "green & red cabbage, carrot, vinegar dressing",
+        tags: "v, gf",
+      },
+      { name: "Tomato Salad", price: "18", desc: "tomato, balsamic vinaigrette", tags: "v, gf" },
+      {
+        name: "Greek Salad",
+        price: "19",
+        desc: "tomato, cucumber, Spanish onion, green peppers, feta, Kalamata olives, oregano",
+        tags: "v, gf",
+      },
+      { name: "Dakos Salad", price: "18", desc: "tomatoes, Cretan cheese, rusk bread" },
+    ],
+  },
+  {
+    title: "Salad Add Ons",
+    items: [
+      { name: "Halloumi Cheese", price: "6" },
       { name: "Greek Feta Cheese", price: "6" },
       { name: "Chicken Souvla", price: "7" },
       { name: "Chargrilled Chicken", price: "7" },
@@ -249,145 +305,200 @@ export const lunchMenu: MenuSection[] = [
   },
 ];
 
-/* ------------------------------ BEVERAGES -------------------------------- */
+/* -------------------------- BEVERAGES (OCT 2026) ------------------------- */
 
 export const drinksMenu: MenuSection[] = [
   {
     title: "Greek Specialty Drinks",
     items: [
-      { name: "Stix Mediterranean Lager (on tap)", price: "9.5 / 12.5", desc: "schooner 425ml / pint 568ml" },
-      { name: "Alfa Beer Lager", price: "10.5" },
-      { name: "Fix Hellas Lager", price: "10.5" },
-      { name: "Mythos Pale Lager", price: "10.5" },
-      { name: "Nissos Pilsner", price: "10.5" },
-      { name: "Ouzo Acropolis", price: "8.5" },
-      { name: "Ouzo Mytilini", price: "9" },
-      { name: "Ouzo Plomari", price: "9.5" },
-      { name: "Tsipouro Idoniko", price: "9" },
-      { name: "Tsipouro Zacharias", price: "10" },
-      { name: "Skinos Mastiha", price: "10" },
-      { name: "Metaxa 5 Star Brandy", price: "8.5" },
-      { name: "Metaxa 12 Star Greek Brandy", price: "10" },
+      { name: "Stix Mediterranean Lager (on tap)", price: "10 / 13", desc: "schooner 425ml / pint 568ml" },
       { name: "Souroti Greek Sparkling Water 750ml", price: "10.5" },
+      { name: "Souroti Greek Still Water 700ml", price: "10.5" },
+    ],
+  },
+  {
+    title: "Beers on Tap",
+    note: "Schooner 425ml / pint 568ml",
+    items: [
+      { name: "Tooheys New", price: "8 / 12" },
+      { name: "Hahn Super Dry", price: "10 / 13" },
+      { name: "Hahn Super Dry Mid 3.5%", price: "8 / 10.5" },
+      { name: "Hawke's Lager", price: "10 / 13" },
+      { name: "Heineken", price: "10 / 13.5" },
+      { name: "Kirin Ichiban", price: "11.5 / 15" },
+      { name: "Grifter Pale Ale", price: "10.5 / 13.5" },
+      { name: "James Squire 150 Lashes", price: "10.5 / 13.5" },
+      { name: "Young Henrys Newtowner", price: "10.5 / 13" },
+      { name: "Stone & Wood Hinterland Pale", price: "11.5 / 11.5" },
+      { name: "Stone & Wood Pacific Ale", price: "12 / 16" },
+      { name: "Guinness", price: "11 / 13.5" },
     ],
   },
   {
     title: "Cocktails",
     items: [
-      { name: "Aperol Spritz", price: "16", desc: "Aperol, Prosecco, soda" },
       {
-        name: "Long Island",
+        name: "Garden of Eden",
         price: "20",
-        desc: "Absolut, Beefeater, Olmeca, Havana white rum, triple sec, lemon & cola",
+        desc: "gin, lychee, lychee juice, lime, sugar syrup, mint, cucumber",
       },
-      { name: "Espresso Martini", price: "20", desc: "vodka, Kahlua, espresso" },
-      { name: "Classic Margarita", price: "20", desc: "Olmeca, triple sec, lime juice, sugar syrup" },
+      { name: "Bloom of Symi", price: "20", desc: "gin, watermelon, lime" },
       {
-        name: "Paros Passion",
+        name: "Aegean Ice Tea",
         price: "20",
-        desc: "gin, Amaretto, passionfruit puree, sugar syrup, lime juice",
+        desc: "ouzo, white rum, gin, vodka, blue curaçao, lime, lemonade",
       },
-      { name: "Hera's Garden", price: "20", desc: "Ouzeus lime, soda, mint, fresh lime" },
       { name: "Old Zeus", price: "20", desc: "Ouzeus raspberry, sweet vermouth, gin" },
+      { name: "Samos Sunrise", price: "20", desc: "vodka, peach liqueur, pineapple, egg white" },
+      { name: "Paros Passion", price: "20", desc: "vodka, amaretto, passionfruit, lime, sugar syrup" },
+      { name: "Kalimera Margarita", price: "20", desc: "tequila, Kahlúa, mango juice, lime" },
+      { name: "Hellenic Heat", price: "20", desc: "Ouzeus lime, chilli syrup, lime, sugar syrup" },
       {
-        name: "Bloom of Symi",
+        name: "Athens Riviera",
         price: "20",
-        desc: "Beefeater pink gin, watermelon puree, lime juice",
+        desc: "Ouzeus raspberry, vodka, strawberry juice, lemonade",
       },
+      {
+        name: "Grecolada",
+        price: "20",
+        desc: "Ouzeus lime, Malibu, white rum, pineapple, sugar syrup, lime",
+      },
+    ],
+  },
+  {
+    title: "Classics",
+    items: [
+      { name: "Margarita", price: "19" },
+      { name: "Lychee Martini", price: "19" },
+      { name: "Old Fashioned", price: "19" },
+      { name: "Amaretto Sour", price: "19" },
+      { name: "Espresso Martini", price: "19" },
+      { name: "Aperol Spritz", price: "19" },
+      { name: "Long Island", price: "19" },
+      { name: "Negroni", price: "19" },
+      { name: "Limoncello Spritz", price: "19" },
     ],
   },
   {
     title: "Mocktails",
     items: [
+      { name: "Aphrodite's Blush", price: "15", desc: "cranberry juice, lychee juice, lime" },
+      {
+        name: "Lychee Spritz",
+        price: "15",
+        desc: "High Hopes non-alcoholic Prosecco, lychee syrup, soda",
+      },
       {
         name: "Santorini Sunset",
-        price: "12",
-        desc: "watermelon, passionfruit, orange and pineapple",
-      },
-      { name: "Aphrodite's Blush", price: "12", desc: "lychee, cranberry, lime and rose syrup" },
-    ],
-  },
-  {
-    title: "Greek Wine",
-    note: "By the glass & bottle",
-    items: [
-      {
-        name: "Mati Fortuna Moschofilero Chardonnay",
-        price: "10 / 48",
-        desc: "Peloponnese GR. An aromatic dry white",
+        price: "15",
+        desc: "watermelon, passionfruit, orange juice, pineapple juice, lime",
       },
       {
-        name: "Semeli Thea Moschofilero",
-        price: "10.5 / 50",
-        desc: "Peloponnese GR. A premium single vineyard dry white",
-      },
-      {
-        name: "Diamantakis Diamantopetra Vidiano Assyrtiko",
-        price: "52",
-        desc: "Crete GR. A distinctive full bodied white blend",
-      },
-      {
-        name: "Zacharias Omikron Retsina",
-        price: "40",
-        desc: "traditional Greek white known for its distinctive pine resin flavour",
-      },
-      { name: "Mati Fortuna Rosé", price: "10 / 48", desc: "Peloponnese GR" },
-      {
-        name: "Mati Fortuna Agiorgitiko Cab Sauv",
-        price: "10 / 48",
-        desc: "Peloponnese GR. Fruity and pungent dry red",
-      },
-      {
-        name: "Semeli Herinos Agiorgitiko Syrah",
-        price: "52",
-        desc: "Peloponnese GR. A premium dry red",
-      },
-      {
-        name: "Kokkinos Xinomavro",
-        price: "72",
-        desc: "Naoussa GR. A medium style red similar to Nebbiolo or Pinot Noir",
+        name: "Passionfruit Martini",
+        price: "15",
+        desc: "passionfruit juice, apple juice, vanilla syrup, lime",
       },
     ],
   },
   {
-    title: "Bubbles, White & Rosé",
-    note: "Glass small / large, bottle",
+    title: "Bubbles",
+    note: "Glass / bottle",
     items: [
-      { name: "Stonefish Premium Sparkling Chardonnay Pinot Noir", price: "48", desc: "SA" },
-      { name: "Garfish Moscato", price: "48", desc: "McLaren Vale, SA" },
+      { name: "Stonefish Premium Sparkling Chardonnay Pinot Noir", price: "10 / 48", desc: "SA" },
+      { name: "Garfish Prosecco", price: "10 / 48", desc: "McLaren Vale, SA" },
       { name: "G.H. Mumm Champagne", price: "109", desc: "Reims, FR" },
       { name: "Veuve Clicquot Champagne", price: "140", desc: "Reims, FR" },
-      { name: "Stonefish Sauvignon Blanc", price: "10 / 48", desc: "Margaret River, WA" },
-      { name: "Stonefish Chardonnay", price: "10 / 48", desc: "Margaret River, WA" },
-      { name: "Grant Burge 'Benchmark' Pinot Grigio", price: "10.5 / 50", desc: "Barossa Valley, SA" },
-      { name: "Lost Turtle Sauvignon Blanc", price: "13 / 60", desc: "Marlborough, NZ" },
-      { name: "Opawa Pinot Gris", price: "13 / 60", desc: "Marlborough, NZ" },
+    ],
+  },
+  {
+    title: "White Wine",
+    note: "Glass small / large / bottle",
+    items: [
+      { name: "Stonefish Sauvignon Blanc", price: "10 / 16 / 48", desc: "Margaret River, WA" },
+      { name: "Stonefish Chardonnay", price: "10 / 16 / 48", desc: "Margaret River, WA" },
+      { name: "Grant Burge 'Benchmark' Pinot Grigio", price: "10.5 / 17 / 50", desc: "Barossa Valley, SA" },
+      { name: "Lost Turtle Sauvignon Blanc", price: "13 / 22.5 / 60", desc: "Marlborough, NZ" },
+      { name: "Opawa Pinot Gris", price: "13 / 22.5 / 60", desc: "Marlborough, NZ" },
       { name: "Freycinet Vineyard Riesling", price: "60", desc: "Tasmania" },
       { name: "Vasse Felix Filius Chardonnay", price: "63", desc: "Margaret River, WA" },
       { name: "Brokenwood Semillon", price: "69", desc: "Hunter Valley, NSW" },
       { name: "Saint Clair Wairau Reserve Sauvignon Blanc", price: "79", desc: "Marlborough, NZ" },
-      { name: "Fenetre Lavande Rosé", price: "10 / 48", desc: "McLaren Vale, SA" },
-      { name: "Brise Maritime", price: "10.5 / 50", desc: "Méditerranée, FR" },
-      { name: "Lumiere De Provence Rosé", price: "52", desc: "Provence, FR" },
+    ],
+  },
+  {
+    title: "Greek White",
+    note: "Glass small / large / bottle",
+    items: [
+      {
+        name: "Mati Fortuna Moschofilero Chardonnay",
+        price: "10 / 16 / 48",
+        desc: "Peloponnese, GR. An aromatic dry white wine",
+      },
+      {
+        name: "Semeli Thea Moschofilero",
+        price: "65",
+        desc: "Peloponnese, GR. A premium single-vineyard dry white wine",
+      },
+      {
+        name: "Diamantakis Diamantopetra Vidiano Assyrtiko",
+        price: "65",
+        desc: "Crete, GR. A distinctive full-bodied white wine blend",
+      },
+      {
+        name: "Zacharias Omikron Retsina",
+        price: "40",
+        desc: "Peloponnese, GR. A traditional Greek white known for its distinctive pine resin flavour",
+      },
+    ],
+  },
+  {
+    title: "Rosé",
+    note: "Glass small / large / bottle",
+    items: [
+      { name: "Fenetre Lavande Rosé", price: "10.5 / 17.5 / 50", desc: "McLaren Vale, SA" },
+      { name: "Brise Maritime", price: "10.5 / 17.5 / 50", desc: "Méditerranée, FR" },
+      { name: "Mati Fortuna Rosé", price: "11 / 18 / 52", desc: "Peloponnese, GR" },
+      { name: "Lumière de Provence", price: "62", desc: "Provence, FR" },
       { name: "Maison Saint AIX Rosé", price: "88", desc: "Provence, FR" },
     ],
   },
   {
     title: "Red Wine",
-    note: "Glass small / large, bottle",
+    note: "Glass small / large / bottle",
     items: [
-      { name: "Stonefish Cab Sauv", price: "10 / 48", desc: "Margaret River, WA" },
-      { name: "Stonefish Merlot", price: "10 / 48", desc: "Margaret River, WA" },
-      { name: "Grant Burge 'Benchmark' Shiraz", price: "10.5 / 49", desc: "Barossa Valley, SA" },
-      { name: "Hãhã Pinot Noir", price: "11 / 52", desc: "Marlborough, NZ" },
-      { name: "Stonefish Reserve Shiraz", price: "11.5 / 52", desc: "Margaret River, WA" },
-      { name: "Susana Balbo Crios Malbec", price: "14 / 65", desc: "Mendoza, ARG" },
+      { name: "Stonefish Cab Sauv", price: "10 / 16 / 48", desc: "Margaret River, WA" },
+      { name: "Stonefish Merlot", price: "10 / 16 / 48", desc: "Margaret River, WA" },
+      { name: "Grant Burge 'Benchmark' Shiraz", price: "10.5 / 17 / 49", desc: "Barossa Valley, SA" },
+      { name: "Hãhã Pinot Noir", price: "11.5 / 19 / 52", desc: "Marlborough, NZ" },
+      { name: "Stonefish Reserve Shiraz", price: "14 / 23 / 65", desc: "Margaret River, WA" },
+      { name: "Susana Balbo Crios Malbec", price: "62", desc: "Mendoza, ARG" },
       { name: "Munda Wines Kaurna Country Syrah", price: "62", desc: "McLaren Vale, SA" },
       { name: "Yalumba 'The Cigar' Cab Sauv", price: "62", desc: "Coonawarra, SA" },
       { name: "Grasshopper Rock Pinot Noir", price: "69", desc: "Central Otago, NZ" },
       { name: "John Duval 'Entity' Shiraz", price: "84", desc: "Barossa Valley, SA" },
       { name: "Ata Rangi Crimson Pinot Noir", price: "84", desc: "Martinborough, NZ" },
-      { name: "Jim Barry 'The McRae' Wood Shiraz", price: "94", desc: "Clare Valley, SA" },
+      { name: "Jim Barry 'The McRae Wood' Shiraz", price: "94", desc: "Clare Valley, SA" },
+    ],
+  },
+  {
+    title: "Greek Red",
+    note: "Glass small / large / bottle",
+    items: [
+      {
+        name: "Mati Fortuna Agiorgitiko Cab Sauv",
+        price: "10 / 16 / 48",
+        desc: "Peloponnese, GR. Fruity dry red",
+      },
+      {
+        name: "Semeli Herinos Agiorgitiko Syrah",
+        price: "52",
+        desc: "Peloponnese, GR. A premium dry red wine",
+      },
+      {
+        name: "Kokkinos Xinomavro",
+        price: "72",
+        desc: "Naoussa, GR. A medium-bodied red similar to Nebbiolo or Pinot Noir",
+      },
     ],
   },
 ];

@@ -112,7 +112,7 @@ export default function MenuPage() {
 
         <div className="mt-4 flex flex-col items-center gap-6 border-t border-border pt-10 text-center">
           <p className="text-xs font-light uppercase tracking-[0.2em] text-foreground/50">
-            v vegetarian · gf gluten free · 10% surcharge on weekends
+            v vegetarian · gf gluten free · a australian · i imported · 10% surcharge on food on Sundays and on food &amp; beverage on public holidays
           </p>
           <div className="flex flex-col items-center gap-4 sm:flex-row">
             <a
