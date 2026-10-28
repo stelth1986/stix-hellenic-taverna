@@ -94,16 +94,6 @@ export const dinnerMenu: MenuSection[] = [
     ],
   },
   {
-    title: "Souvla Wraps",
-    note: "All served with chips",
-    items: [
-      { name: "Halloumi", price: "25", desc: "tomato, onion, tzatziki" },
-      { name: "Chicken", price: "24", desc: "tomato, onion, tzatziki" },
-      { name: "Pork", price: "24", desc: "tomato, onion, tzatziki" },
-      { name: "Lamb Shoulder", price: "26", desc: "tomato, onion, tzatziki" },
-    ],
-  },
-  {
     title: "From the Charcoal",
     items: [
       {
