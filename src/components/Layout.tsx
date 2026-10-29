@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router";
-import { Menu, X, MapPin, Phone, Mail, Clock, Instagram, Facebook } from "lucide-react";
-import { SITE } from "@/data/site";
+import { Menu, X, MapPin, Phone, Mail, Clock, Instagram, Facebook, Award } from "lucide-react";
+import { SITE, AWARD } from "@/data/site";
 import { useHours } from "@/lib/config";
 
 const NAV_LEFT = [
@@ -62,6 +62,26 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex min-h-screen flex-col">
+      {/* Award ribbon: shown on every page, desktop and mobile */}
+      <Link
+        to={{ pathname: "/", hash: "#award" }}
+        className="group block bg-black text-cream"
+      >
+        <div className="mx-auto flex max-w-7xl items-center justify-center gap-2.5 px-4 py-2.5 text-center text-[10px] font-medium uppercase tracking-[0.18em] sm:text-[11px] sm:tracking-[0.24em]">
+          <Award size={14} className="shrink-0 text-gold-light" />
+          <span>
+            <span className="text-gold-light">{AWARD.result}</span>
+            <span className="mx-1.5 text-cream/40">·</span>
+            {AWARD.category}
+            <span className="hidden sm:inline">
+              <span className="mx-1.5 text-cream/40">·</span>
+              {AWARD.event} {AWARD.year}
+            </span>
+            <span className="sm:hidden"> · AHA NSW {AWARD.year}</span>
+          </span>
+        </div>
+      </Link>
+
       {/* Utility strip: real info, not marketing */}
       <div className="hidden border-b border-border bg-cream md:block">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-2 text-[11px] font-medium uppercase tracking-[0.2em] text-foreground/55 lg:px-8">
@@ -235,6 +255,28 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               Riverview Hotel Tempe
             </a>
           </div>
+        </div>
+
+        <div className="border-t border-cream/10">
+          <Link
+            to={{ pathname: "/", hash: "#award" }}
+            className="mx-auto flex max-w-7xl flex-col items-center gap-5 px-5 py-10 text-center transition-opacity hover:opacity-90 sm:flex-row sm:text-left lg:px-8"
+          >
+            <img
+              src={AWARD.badge}
+              alt={`${AWARD.event} ${AWARD.year}`}
+              loading="lazy"
+              className="h-20 w-20 shrink-0 rounded-sm"
+            />
+            <div>
+              <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-gold-light">
+                {AWARD.event} {AWARD.year}
+              </p>
+              <p className="mt-1 font-display text-2xl font-semibold">
+                {AWARD.result}, {AWARD.category}
+              </p>
+            </div>
+          </Link>
         </div>
 
         <div className="border-t border-cream/10">

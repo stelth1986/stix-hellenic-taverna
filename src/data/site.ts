@@ -43,3 +43,15 @@ export const WHATS_ON = [
     blurb: "$6 house wine and beer at the hotel bar, every day.",
   },
 ];
+
+/* AHA NSW Awards for Excellence 2026. Stix was Highly Commended (not the
+   category winner), so never show the supplied "WINNER" artwork as-is. */
+export const AWARD = {
+  result: "Highly Commended",
+  category: "Best Restaurant",
+  event: "AHA NSW Awards for Excellence",
+  year: "2026",
+  badge: "./images/aha-2026-badge.webp",
+  sourceUrl:
+    "https://www.ahaawardsnsw.com.au/assets/ahaawardsnsw/AHAAwards2026WinnerList.pdf",
+};

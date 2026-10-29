@@ -1,6 +1,7 @@
-import { Link } from "react-router";
-import { ArrowRight } from "lucide-react";
-import { SITE, WHATS_ON } from "@/data/site";
+import { useEffect } from "react";
+import { Link, useLocation } from "react-router";
+import { ArrowRight, Award } from "lucide-react";
+import { SITE, WHATS_ON, AWARD } from "@/data/site";
 import { BookButton } from "@/components/Layout";
 import { useConfig, useHours, img } from "@/lib/config";
 
@@ -31,6 +32,16 @@ const MENU_CARDS = [
 export default function Home() {
   const cfg = useConfig();
   const hours = useHours();
+  const location = useLocation();
+
+  // Ribbon and footer link to /#award. Wait for Layout's scroll-to-top first.
+  useEffect(() => {
+    if (location.hash !== "#award") return;
+    const t = setTimeout(() => {
+      document.getElementById("award")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 80);
+    return () => clearTimeout(t);
+  }, [location.hash, location.key]);
 
   return (
     <>
@@ -70,6 +81,66 @@ export default function Home() {
             >
               See the Menu
             </Link>
+          </div>
+          <a
+            href="#award"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById("award")?.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="mt-10 inline-flex items-center gap-3 border border-gold-light/50 bg-black/45 px-5 py-3 text-left backdrop-blur-sm transition-colors hover:border-gold-light"
+          >
+            <Award size={22} className="shrink-0 text-gold-light" />
+            <span>
+              <span className="block text-[10px] font-medium uppercase tracking-[0.3em] text-gold-light">
+                {AWARD.event} {AWARD.year}
+              </span>
+              <span className="block font-display text-lg font-semibold leading-tight text-cream">
+                {AWARD.result}, {AWARD.category}
+              </span>
+            </span>
+          </a>
+        </div>
+      </section>
+
+      {/* ----------------------------- AWARD ------------------------------ */}
+      <section id="award" className="scroll-mt-28 bg-black text-cream">
+        <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-20 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:gap-16 lg:px-8 lg:py-24">
+          <img
+            src={AWARD.badge}
+            alt={`${AWARD.event} ${AWARD.year} logo`}
+            loading="lazy"
+            className="mx-auto w-full max-w-[22rem]"
+          />
+          <div className="text-center md:text-left">
+            <p className="text-[11px] font-medium uppercase tracking-[0.35em] text-gold-light">
+              {AWARD.event} {AWARD.year}
+            </p>
+            <h2 className="mt-4 font-display text-4xl font-semibold leading-tight md:text-6xl">
+              {AWARD.result}
+              <br />
+              <span className="text-gold-light">for {AWARD.category}.</span>
+            </h2>
+            <p className="mx-auto mt-6 max-w-xl text-base font-light leading-relaxed text-cream/80 md:mx-0 md:text-lg">
+              Stix has been named {AWARD.result} for {AWARD.category} at the{" "}
+              {AWARD.year} {AWARD.event}, judged against restaurants in hotels
+              right across the state. Thank you to everyone who has eaten with
+              us, and to the team on the grill and on the floor who earned it.
+            </p>
+            <p className="mx-auto mt-4 max-w-xl text-base font-light leading-relaxed text-cream/80 md:mx-0 md:text-lg">
+              Come and see what the judges tasted.
+            </p>
+            <div className="mt-9 flex flex-col items-center gap-5 sm:flex-row md:justify-start">
+              <BookButton className="!bg-gold !text-aegean-ink hover:!bg-gold-light" />
+              <a
+                href={AWARD.sourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-[12px] font-medium uppercase tracking-[0.25em] text-cream/75 transition-colors hover:text-gold-light"
+              >
+                See the winners list <ArrowRight size={15} />
+              </a>
+            </div>
           </div>
         </div>
       </section>
