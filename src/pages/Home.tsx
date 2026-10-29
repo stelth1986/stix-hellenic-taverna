@@ -171,7 +171,7 @@ export default function Home() {
             </div>
             <div className="order-1 lg:order-2">
               <h2 className="font-display text-4xl font-semibold leading-tight md:text-5xl">
-                Bouzouki night, every Wednesday.
+                Bouzouki night, every Friday.
               </h2>
               <div className="mt-8 space-y-8">
                 {WHATS_ON.map((item) => (

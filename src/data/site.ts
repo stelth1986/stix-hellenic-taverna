@@ -33,9 +33,9 @@ export const HOURS = {
 export const WHATS_ON = [
   {
     title: "Bouzouki Night",
-    when: "Every Wednesday from 7pm",
+    when: "Every Friday from 7pm",
     blurb:
-      "Live bouzouki while you eat. Dinner on a Wednesday tends to turn into a bit of a night out.",
+      "Live bouzouki while you eat. Dinner on a Friday tends to turn into a bit of a night out.",
   },
   {
     title: "Happy Hour",

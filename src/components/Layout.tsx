@@ -68,7 +68,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <span className="flex items-center gap-2">
             <MapPin size={12} className="text-gold" /> 900 Princes Hwy, Tempe
           </span>
-          <span className="text-aegean">Bouzouki night every Wednesday from 7pm</span>
+          <span className="text-aegean">Bouzouki night every Friday from 7pm</span>
           <a
             href={SITE.phoneHref}
             className="flex items-center gap-2 transition-colors hover:text-aegean"
