@@ -67,7 +67,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         to={{ pathname: "/", hash: "#award" }}
         className="group block bg-black text-cream"
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-center gap-2.5 px-4 py-2.5 text-center text-[10px] font-medium uppercase tracking-[0.18em] sm:text-[11px] sm:tracking-[0.24em]">
+        <div className="mx-auto flex max-w-7xl items-center justify-center gap-2.5 px-3 py-2.5 text-center text-[10px] font-medium uppercase tracking-[0.08em] sm:text-[11px] sm:tracking-[0.24em]">
           <Award size={14} className="shrink-0 text-gold-light" />
           <span>
             <span className="text-gold-light">{AWARD.result}</span>
@@ -77,7 +77,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <span className="mx-1.5 text-cream/40">·</span>
               {AWARD.event} {AWARD.year}
             </span>
-            <span className="sm:hidden"> · AHA NSW {AWARD.year}</span>
+            <span className="sm:hidden"> · AHA {AWARD.year}</span>
           </span>
         </div>
       </Link>
