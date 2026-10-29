@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Link, useLocation } from "react-router";
-import { ArrowRight, Award } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { SITE, WHATS_ON, AWARD } from "@/data/site";
 import { BookButton } from "@/components/Layout";
 import { useConfig, useHours, img } from "@/lib/config";
@@ -82,24 +82,6 @@ export default function Home() {
               See the Menu
             </Link>
           </div>
-          <a
-            href="#award"
-            onClick={(e) => {
-              e.preventDefault();
-              document.getElementById("award")?.scrollIntoView({ behavior: "smooth" });
-            }}
-            className="mt-10 inline-flex items-center gap-3 border border-gold-light/50 bg-black/45 px-5 py-3 text-left backdrop-blur-sm transition-colors hover:border-gold-light"
-          >
-            <Award size={22} className="shrink-0 text-gold-light" />
-            <span>
-              <span className="block text-[10px] font-medium uppercase tracking-[0.3em] text-gold-light">
-                {AWARD.event} {AWARD.year}
-              </span>
-              <span className="block font-display text-lg font-semibold leading-tight text-cream">
-                {AWARD.result}, {AWARD.category}
-              </span>
-            </span>
-          </a>
         </div>
       </section>
 
@@ -132,14 +114,6 @@ export default function Home() {
             </p>
             <div className="mt-9 flex flex-col items-center gap-5 sm:flex-row md:justify-start">
               <BookButton className="!bg-gold !text-aegean-ink hover:!bg-gold-light" />
-              <a
-                href={AWARD.sourceUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-[12px] font-medium uppercase tracking-[0.25em] text-cream/75 transition-colors hover:text-gold-light"
-              >
-                See the winners list <ArrowRight size={15} />
-              </a>
             </div>
           </div>
         </div>

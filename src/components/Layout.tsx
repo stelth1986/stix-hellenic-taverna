@@ -266,7 +266,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               src={AWARD.badge}
               alt={`${AWARD.event} ${AWARD.year}`}
               loading="lazy"
-              className="h-20 w-20 shrink-0 rounded-sm"
+              className="h-28 w-28 shrink-0 rounded-sm"
             />
             <div>
               <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-gold-light">
