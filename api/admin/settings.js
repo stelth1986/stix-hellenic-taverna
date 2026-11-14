@@ -1,5 +1,6 @@
 import { hasDb, getSettings, setSetting } from "../_lib/db.js";
 import { requireAdmin } from "../_lib/auth.js";
+import { hasBlob, publishPublicConfig } from "../_lib/public-config.js";
 
 const ALLOWED_KEYS = new Set(["images", "forms", "analytics", "hours", "gallery", "seo"]);
 
@@ -26,11 +27,22 @@ export default async function handler(req, res) {
       for (const [key, value] of entries) {
         await setSetting(key, value);
       }
-      return res.status(200).json({ ok: true, saved: entries.map(([k]) => k) });
     } catch (err) {
       console.error("Settings save failed", err);
       return res.status(500).json({ error: "Could not save. Please try again." });
     }
+    // The public site reads a published copy, not the database.
+    if (hasBlob()) {
+      try {
+        await publishPublicConfig(await getSettings());
+      } catch (err) {
+        console.error("Settings publish failed", err);
+        return res
+          .status(500)
+          .json({ error: "Saved, but the website could not be updated. Please save again." });
+      }
+    }
+    return res.status(200).json({ ok: true, saved: entries.map(([k]) => k) });
   }
 
   return res.status(405).json({ error: "Method not allowed" });
