@@ -29,8 +29,8 @@ export const PANIGYRI = {
     },
     {
       title: "Santa & his elves",
-      image: "./images/panigyri-courtyard.jpg",
-      alt: "Families in the Riverview Hotel courtyard, decorated for Christmas",
+      image: "./images/panigyri-santa.jpg",
+      alt: "Santa laughing with two of his elves on the deck, under the palms and Christmas lights",
       desc: "Bring the kids. Santa and his elves are dropping in to say hello.",
     },
   ],
