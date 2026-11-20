@@ -3,6 +3,7 @@ import { Link, NavLink, useLocation } from "react-router";
 import { Menu, X, MapPin, Phone, Mail, Clock, Instagram, Facebook, Award } from "lucide-react";
 import { SITE, AWARD } from "@/data/site";
 import { useHours } from "@/lib/config";
+import EventPopup from "@/components/EventPopup";
 
 const NAV_LEFT = [
   { to: "/", label: "Home" },
@@ -155,6 +156,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </header>
 
       <main className="flex-1">{children}</main>
+
+      <EventPopup />
 
       {/* Footer */}
       <footer className="bg-aegean-ink text-cream">

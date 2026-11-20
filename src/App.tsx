@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Routes, Route, useLocation } from "react-router";
+import { Routes, Route, Navigate, useLocation } from "react-router";
 import Layout from "./components/Layout";
 import Seo from "./components/Seo";
 import { ConfigProvider } from "./lib/config";
@@ -10,6 +10,7 @@ import MenuPage from "./pages/Menu";
 import FunctionsPage from "./pages/Functions";
 import ChristmasPage from "./pages/Christmas";
 import ChristmasThanksPage from "./pages/ChristmasThanks";
+import PanigyriPage from "./pages/Panigyri";
 import GalleryPage from "./pages/Gallery";
 import ContactPage from "./pages/Contact";
 import AdminPage from "./pages/Admin";
@@ -61,6 +62,11 @@ export default function App() {
                 <Route path="/functions" element={<FunctionsPage />} />
                 <Route path="/christmas" element={<ChristmasPage />} />
                 <Route path="/christmas/thank-you" element={<ChristmasThanksPage />} />
+                <Route path="/panigyri" element={<PanigyriPage />} />
+                {/* Common alternate spellings land on the same page. */}
+                <Route path="/panagiri" element={<Navigate to="/panigyri" replace />} />
+                <Route path="/panigiri" element={<Navigate to="/panigyri" replace />} />
+                <Route path="/panagyri" element={<Navigate to="/panigyri" replace />} />
                 <Route path="/gallery" element={<GalleryPage />} />
                 <Route path="/contact" element={<ContactPage />} />
                 <Route path="*" element={<Home />} />

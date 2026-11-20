@@ -17,6 +17,7 @@ export const SEO_PAGES = [
   { key: "menu", label: "Our Menu", path: "/menu" },
   { key: "functions", label: "Functions", path: "/functions" },
   { key: "christmas", label: "Christmas", path: "/christmas" },
+  { key: "panigyri", label: "Christmas Panigyri", path: "/panigyri" },
   { key: "location", label: "Location", path: "/location" },
   { key: "gallery", label: "Gallery", path: "/gallery" },
   { key: "contact", label: "Contact", path: "/contact" },
@@ -46,6 +47,12 @@ export const DEFAULT_SEO: Record<string, PageSeo> = {
     description:
       "Book your work Christmas party or end-of-year celebration at Stix Hellenic Taverna. Set menus, drinks packages and share-style Greek feasts for groups.",
     ogImage: "/images/jim-elvis-christmas.webp",
+  },
+  panigyri: {
+    title: "Christmas Panigyri, Sun 13 Dec | Stix Hellenic Taverna, Tempe",
+    description:
+      "A Greek village Christmas comes to Tempe. Spits all day, live bouzouki, Santa and his elves at the Riverview Hotel, Sunday 13 December from 12pm. Free entry.",
+    ogImage: "/images/panigyri-flyer.jpg",
   },
   location: {
     title: "Find Us | Stix Hellenic Taverna, Riverview Hotel Tempe",
