@@ -30,7 +30,7 @@ type HoursShape = typeof HOURS;
 
 type Settings = {
   images: Record<string, string>;
-  forms: { contactTo?: string; functionsTo?: string; christmasTo?: string };
+  forms: { v?: number; contactTo?: string; functionsTo?: string; christmasTo?: string; bcc?: string };
   analytics: { gaId?: string; enabled?: boolean };
   hours: HoursShape | null;
   gallery: GalleryItem[] | null;
@@ -350,9 +350,12 @@ function FormsSection({
   settings: Settings;
   onChange: (s: Settings) => void;
 }) {
-  const [contactTo, setContactTo] = useState(settings.forms.contactTo || "");
-  const [functionsTo, setFunctionsTo] = useState(settings.forms.functionsTo || "");
-  const [christmasTo, setChristmasTo] = useState(settings.forms.christmasTo || "");
+  // Older saved recipients (no v: 2) are ignored by the site; show what is actually used.
+  const saved2 = settings.forms?.v === 2 ? settings.forms : {};
+  const [contactTo, setContactTo] = useState(saved2.contactTo || "info@stixtaverna.com.au");
+  const [functionsTo, setFunctionsTo] = useState(saved2.functionsTo || "info@stixtaverna.com.au");
+  const [christmasTo, setChristmasTo] = useState(saved2.christmasTo || "");
+  const [bcc, setBcc] = useState(saved2.bcc ?? "stelios@vjbgroup.com.au");
   const [busy, setBusy] = useState(false);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState("");
@@ -362,9 +365,11 @@ function FormsSection({
     setBusy(true);
     setError("");
     const forms = {
-      contactTo: contactTo.trim() || "stelios@vjbgroup.com.au",
-      functionsTo: functionsTo.trim() || "stelios@vjbgroup.com.au",
+      v: 2,
+      contactTo: contactTo.trim() || "info@stixtaverna.com.au",
+      functionsTo: functionsTo.trim() || "info@stixtaverna.com.au",
       christmasTo: christmasTo.trim(),
+      bcc: bcc.trim(),
     };
     try {
       await api("/api/admin/settings", {
@@ -394,7 +399,7 @@ function FormsSection({
             type="email"
             value={contactTo}
             onChange={(e) => setContactTo(e.target.value)}
-            placeholder="stelios@vjbgroup.com.au"
+            placeholder="info@stixtaverna.com.au"
             className={inputCls}
           />
         </div>
@@ -404,7 +409,7 @@ function FormsSection({
             type="email"
             value={functionsTo}
             onChange={(e) => setFunctionsTo(e.target.value)}
-            placeholder="stelios@vjbgroup.com.au"
+            placeholder="info@stixtaverna.com.au"
             className={inputCls}
           />
         </div>
@@ -420,6 +425,19 @@ function FormsSection({
           <p className="mt-1 text-xs font-light text-foreground/50">
             If this is empty, Christmas enquiries go to the function enquiries
             address above.
+          </p>
+        </div>
+        <div>
+          <label className={labelCls}>Send a hidden copy (BCC) of every message to</label>
+          <input
+            type="text"
+            value={bcc}
+            onChange={(e) => setBcc(e.target.value)}
+            placeholder="Leave empty for no hidden copy"
+            className={inputCls}
+          />
+          <p className="mt-1 text-xs font-light text-foreground/50">
+            Separate several addresses with commas.
           </p>
         </div>
         <div className="flex items-center">

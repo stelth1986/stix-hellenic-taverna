@@ -1,6 +1,7 @@
 import { getSettings } from "./_lib/db.js";
 
-const DEFAULT_RECIPIENT = "stelios@vjbgroup.com.au";
+const DEFAULT_RECIPIENT = "info@stixtaverna.com.au";
+const DEFAULT_BCC = "stelios@vjbgroup.com.au";
 const SENDER = "Stix Hellenic Taverna <stix@vjbgroup.com.au>";
 
 const esc = (s) =>
@@ -52,11 +53,17 @@ export default async function handler(req, res) {
   let contactTo = DEFAULT_RECIPIENT;
   let functionsTo = DEFAULT_RECIPIENT;
   let christmasTo = "";
+  let bcc = DEFAULT_BCC;
   try {
     const s = await getSettings();
+    // Recipients saved before Nov 2026 (no v: 2) are ignored so every form
+    // goes to info@stixtaverna.com.au. Saving the admin panel sets v: 2.
+    const f = s.forms && s.forms.v === 2 ? s.forms : null;
+    s.forms = f;
     if (s.forms && s.forms.contactTo) contactTo = String(s.forms.contactTo);
     if (s.forms && s.forms.functionsTo) functionsTo = String(s.forms.functionsTo);
     if (s.forms && s.forms.christmasTo) christmasTo = String(s.forms.christmasTo);
+    if (s.forms && typeof s.forms.bcc === "string") bcc = s.forms.bcc;
   } catch (err) {
     console.error("Could not load form settings, using default recipient", err);
   }
@@ -113,6 +120,12 @@ export default async function handler(req, res) {
     .filter((l) => l !== null && l !== false)
     .join("\n");
 
+  // Hidden copy, skipped if it is the same address as the main recipient.
+  const bccList = String(bcc || "")
+    .split(/[,;\s]+/)
+    .map((a) => a.trim())
+    .filter((a) => a && a.toLowerCase() !== String(recipient).toLowerCase());
+
   try {
     const r = await fetch("https://api.smtp2go.com/v3/email/send", {
       method: "POST",
@@ -120,6 +133,7 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         api_key: process.env.SMTP2GO_API_KEY,
         to: [recipient],
+        ...(bccList.length ? { bcc: bccList } : {}),
         sender: SENDER,
         custom_headers: [{ header: "Reply-To", value: `${name} <${email}>` }],
         subject,
