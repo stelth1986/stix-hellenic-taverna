@@ -6,7 +6,7 @@ export const SITE = {
   addressNote: "Inside the Riverview Hotel",
   phoneDisplay: "(02) 8080 7072",
   phoneHref: "tel:+61280807072",
-  email: "info@universalhotels.com.au",
+  email: "info@stixtaverna.com.au",
   bookingUrl:
     "https://www.opentable.com.au/r/riverview-hotel-reservations-tempe?restref=279953&lang=en-AU&ot_source=Restaurant%20website",
   hotelUrl: "https://riverviewhoteltempe.com.au/",
